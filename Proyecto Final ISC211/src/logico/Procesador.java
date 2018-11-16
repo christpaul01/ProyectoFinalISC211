@@ -4,14 +4,14 @@ public class Procesador extends Componente {
 	
 	private String socket;
 	private Double velocidad;
-	private String modelo;
 
-	public Procesador(String marca, Double precio, int cantidad, String numeroSerie, String socket, Double velocidad,
-			String modelo) {
-		super(marca, precio, cantidad, numeroSerie);
+	
+
+	public Procesador(String marca, Double precio, int cantidad, String numeroSerie, String modelo, Double velocidad, String socket) {
+		super(marca, precio, cantidad, numeroSerie, modelo);
+		
 		this.socket = socket;
 		this.velocidad = velocidad;
-		this.modelo = modelo;
 	}
 
 	public String getSocket() {
@@ -29,15 +29,4 @@ public class Procesador extends Componente {
 	public void setVelocidad(Double velocidad) {
 		this.velocidad = velocidad;
 	}
-
-	public String getModelo() {
-		return modelo;
-	}
-
-	public void setModelo(String modelo) {
-		this.modelo = modelo;
-	}
-	
-	
-
 }

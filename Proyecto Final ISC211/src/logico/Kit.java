@@ -6,13 +6,13 @@ public class Kit {
 	
 	private ArrayList<Componente> componentes;
 	private final int descuento = 10;
-	private String modelo;
+	private String id;
 	
 	
-	public Kit(ArrayList<Componente> componentes, String modelo) {
+	public Kit(ArrayList<Componente> componentes, String id) {
 		super();
 		this.componentes = componentes;
-		this.modelo = modelo;
+		this.id = id;
 	}
 
 
@@ -26,13 +26,13 @@ public class Kit {
 	}
 
 
-	public String getModelo() {
-		return modelo;
+	public String getId() {
+		return id;
 	}
 
 
-	public void setModelo(String modelo) {
-		this.modelo = modelo;
+	public void setId(String id) {
+		this.id = id;
 	}
 
 

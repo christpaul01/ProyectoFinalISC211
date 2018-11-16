@@ -6,8 +6,9 @@ public class Ram extends Componente {
 	private String tipo;
 	
 	
-	public Ram(String marca, Double precio, int cantidad, String numeroSerie, Double memoria, String tipo) {
-		super(marca, precio, cantidad, numeroSerie);
+	public Ram(String marca, Double precio, int cantidad, String numeroSerie, String modelo, Double memoria, String tipo) {
+		super(marca, precio, cantidad, numeroSerie, modelo);
+		
 		this.memoria = memoria;
 		this.tipo = tipo;
 	}
@@ -31,7 +32,4 @@ public class Ram extends Componente {
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
-	
-	
-	
 }
