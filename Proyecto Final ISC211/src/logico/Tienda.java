@@ -6,12 +6,12 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectInput;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Tienda {
+public class Tienda implements Serializable {
 
 	private ArrayList<Componente> componentes;
 	private ArrayList<Cliente> clientes;
@@ -87,7 +87,7 @@ public class Tienda {
 	public void setComponentes(ArrayList<Componente> componentes) {
 		this.componentes = componentes;
 	}
-	public void GuardarTienda(File archivo,Tienda tienda ) {
+	public void guardarTienda(File archivo,Tienda tienda ) {
 		ObjectOutputStream save;
 		try {
 			save = new ObjectOutputStream(new FileOutputStream(archivo));
@@ -101,7 +101,7 @@ public class Tienda {
 			e.printStackTrace();
 		}
 	}
-	public Tienda LeerTienda(File archivo) {
+	public Tienda leerTienda(File archivo) {
 		Tienda tienda=null;
 		try {
 			FileInputStream rd= new FileInputStream(archivo);
