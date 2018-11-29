@@ -39,6 +39,14 @@ public class Kit {
 	public int getDescuento() {
 		return descuento;
 	}
+	public float precioTotal() {
+		float total=0;
+		int ind=0;
+		for (int i = 0; i < componentes.size(); i++) {	
+			total+=componentes.get(i).getPrecioVenta()-(componentes.get(i).getPrecioVenta()*0.10);
+		}
+		return total;
+	}
 	
 	
 

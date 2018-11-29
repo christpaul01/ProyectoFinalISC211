@@ -3,21 +3,42 @@ package logico;
 public class Componente {
 
 	protected String marca;
-	protected Double precio;
+	protected Double precioCompra;
 	protected int cantidad;
 	protected String numeroSerie;
 	protected String modelo;
+	protected Double precioVenta;
 	
 	
 	
-	public Componente(String marca, Double precio, int cantidad, String numeroSerie, String modelo) {
+	public Componente(String marca, Double precioCompra, int cantidad, String numeroSerie, String modelo,Double precioVenta) {
 		super();
-		
 		this.marca = marca;
-		this.precio = precio;
+		this.precioCompra = precioCompra;
 		this.cantidad = cantidad;
 		this.numeroSerie = numeroSerie;
 		this.modelo = modelo;
+		this.precioVenta=precioVenta;
+	}
+
+
+	public Double getPrecioCompra() {
+		return precioCompra;
+	}
+
+
+	public void setPrecioCompra(Double precioCompra) {
+		this.precioCompra = precioCompra;
+	}
+
+
+	public Double getPrecioVenta() {
+		return precioVenta;
+	}
+
+
+	public void setPrecioVenta(Double precioVenta) {
+		this.precioVenta = precioVenta;
 	}
 
 
@@ -28,16 +49,6 @@ public class Componente {
 
 	public void setMarca(String marca) {
 		this.marca = marca;
-	}
-
-
-	public Double getPrecio() {
-		return precio;
-	}
-
-
-	public void setPrecio(Double precio) {
-		this.precio = precio;
 	}
 
 

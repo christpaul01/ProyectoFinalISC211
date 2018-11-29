@@ -6,15 +6,15 @@ public class Motherboard extends Componente {
 
 	private String socket;
 	private String ram;
-	private ArrayList<String> discoDuro;	
+	private ArrayList<DiscoDuro> discoDuro;	
 	
 
-	public Motherboard(String marca, Double precio, int cantidad, String numeroSerie, String modelo, String socket, String ram, ArrayList<String> discoDuro) {
-		super(marca, precio, cantidad, numeroSerie, modelo);
-		
+	public Motherboard(String marca, Double precioCompra, int cantidad, String numeroSerie, String modelo,
+			Double precioVenta, String socket, String ram) {
+		super(marca, precioCompra, cantidad, numeroSerie, modelo, precioVenta);
 		this.socket = socket;
 		this.ram = ram;
-		this.discoDuro = discoDuro;
+		discoDuro = new ArrayList<>();
 	}
 
 
@@ -38,12 +38,12 @@ public class Motherboard extends Componente {
 	}
 
 
-	public ArrayList<String> getDiscoDuro() {
+	public ArrayList<DiscoDuro> getDiscoDuro() {
 		return discoDuro;
 	}
 
 
-	public void setDiscoDuro(ArrayList<String> discoDuro) {
+	public void setDiscoDuro(ArrayList<DiscoDuro> discoDuro) {
 		this.discoDuro = discoDuro;
 	}	
 }

@@ -5,11 +5,10 @@ public class Procesador extends Componente {
 	private String socket;
 	private Double velocidad;
 
-	
 
-	public Procesador(String marca, Double precio, int cantidad, String numeroSerie, String modelo, Double velocidad, String socket) {
-		super(marca, precio, cantidad, numeroSerie, modelo);
-		
+	public Procesador(String marca, Double precioCompra, int cantidad, String numeroSerie, String modelo,
+			Double precioVenta,String socket,Double velocidad) {
+		super(marca, precioCompra, cantidad, numeroSerie, modelo, precioVenta);
 		this.socket = socket;
 		this.velocidad = velocidad;
 	}
