@@ -1,6 +1,14 @@
 package logico;
 
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 public class Tienda {
@@ -55,6 +63,8 @@ public class Tienda {
 	public void setKits(ArrayList<Kit> kits) {
 		this.kits = kits;
 	}
+	
+		
 
 
 
@@ -76,5 +86,30 @@ public class Tienda {
  
 	public void setComponentes(ArrayList<Componente> componentes) {
 		this.componentes = componentes;
+	}
+	public void GuardarTienda(File archivo,Tienda tienda ) {
+		ObjectOutputStream save;
+		try {
+			save = new ObjectOutputStream(new FileOutputStream(archivo));
+			save.writeObject(tienda);
+			save.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	public Tienda LeerTienda(File archivo) {
+		Tienda tienda=null;
+		try {
+			FileInputStream rd= new FileInputStream(archivo);
+			ObjectInputStream read= new ObjectInputStream(rd);
+				tienda= (Tienda)read.readObject();
+		} catch (IOException | ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		return tienda;
 	}
 }
