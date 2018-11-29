@@ -1,20 +1,24 @@
 package logico;
 
 public class Vendedor extends Usuario {
-	private String id;
+	
+	private int cantVentas;
+	
 	
 	public Vendedor(String nombre, String clave, String id) {
-		super(nombre, clave);
+		super(nombre, clave,id);
 		
-		this.setId(id);
+		cantVentas = 0;
+		
 	}
 
-	public String getId() {
-		return id;
+
+	public int getCantVentas() {
+		return cantVentas;
 	}
 
-	public void setId(String id) {
-		this.id = id;
-	}
+	
+	
+
 
 }

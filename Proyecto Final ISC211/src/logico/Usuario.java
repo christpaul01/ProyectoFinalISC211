@@ -3,9 +3,11 @@ package logico;
 public abstract class Usuario {
 	protected String nombre;
 	protected String clave;
+	protected String id;
 	
-	public Usuario(String nombre, String clave) {
+	public Usuario(String nombre, String clave,String id) {
 		super();
+		this.id = id;
 		this.nombre = nombre;
 		this.clave = clave;
 	}
@@ -22,5 +24,13 @@ public abstract class Usuario {
 	public void setClave(String clave) {
 		this.clave = clave;
 	}
+
+	public String getId() {
+		return id;
+	}
+	
+	
+	
+	
 	
 }

@@ -13,22 +13,95 @@ import java.util.ArrayList;
 
 public class Tienda implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private ArrayList<Componente> componentes;
 	private ArrayList<Cliente> clientes;
 	private ArrayList<Factura> facturas;
 	private ArrayList<Kit> kits;
 	private ArrayList<Usuario> usuarios;
+	private String nombre;
 
-	public Tienda(ArrayList<Componente> componentes, ArrayList<Cliente> clientes, ArrayList<Factura> facturas,
-			ArrayList<Kit> kits, ArrayList<Usuario> usuarios) {
+	public Tienda(String nombre) {
 		super();
-		this.componentes = componentes;
-		this.clientes = clientes;
-		this.facturas = facturas;
-		this.kits = kits;
-		this.usuarios = usuarios;
+		this.nombre = nombre;
 	}	
 	
+	public String asignarIdCliente() {
+		
+		String idConCeros = String.format("%06d", (clientes.size() +1 ));
+		
+		return idConCeros;
+		
+	}
+	
+	public String asignarSerial() {
+		
+		String idConCeros = String.format("%010d", (componentes.size() +1 ));
+		
+		return idConCeros;
+		
+	}
+	
+
+	public void insertarCliente(Cliente cliente) {
+		clientes.add(cliente);
+	}
+
+	
+	public int indexCliente(String cedula) {
+		
+		boolean encontrado = false;
+		int i = 0;
+		
+		while(!encontrado && i < clientes.size())
+		{
+			if(clientes.get(i).getCedula().equals(cedula))
+			{
+				encontrado = true;
+			}
+			i++;
+		}
+		
+		return i;
+	}
+	
+	
+	public void insertarVendedor(Vendedor vendedor)
+	{
+		usuarios.add(vendedor);
+	}
+	
+	public int indexUsuario(String id) {
+		
+		int index = 0;
+		boolean encontrado = false;
+		while(!encontrado && index < usuarios.size())
+		{	
+			if(usuarios.get(index).getId().equalsIgnoreCase(id))
+			{
+				return index;
+			}
+			index++;
+		}
+		
+		return -1;
+		
+	}
+
+	
+	public void insertarAdministrador(Administrador admin)
+	{
+		usuarios.add(admin);
+	}
+	
+	public void insertarCliente(Cliente cliente) {
+		clientes.add(cliente);
+	}
+
 	
 	public ArrayList<Cliente> getClientes() {
 		return clientes;
@@ -112,4 +185,11 @@ public class Tienda implements Serializable {
 		}
 		return tienda;
 	}
+
+
+	public String getNombre() {
+		return nombre;
+	}
+
+
 }
