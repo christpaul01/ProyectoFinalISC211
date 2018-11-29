@@ -98,9 +98,6 @@ public class Tienda implements Serializable {
 		usuarios.add(admin);
 	}
 	
-	public void insertarCliente(Cliente cliente) {
-		clientes.add(cliente);
-	}
 
 	
 	public ArrayList<Cliente> getClientes() {

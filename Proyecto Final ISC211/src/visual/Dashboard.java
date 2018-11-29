@@ -64,5 +64,6 @@ public class Dashboard extends JFrame {
         // Mostrar Grafico
         ChartPanel chartPanel = new ChartPanel(chart);
         panel.add(chartPanel);
+        chartPanel.setSize(300, 300);
 	}
 }
