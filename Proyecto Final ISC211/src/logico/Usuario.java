@@ -4,12 +4,14 @@ public abstract class Usuario {
 	protected String nombre;
 	protected String clave;
 	protected String id;
+	protected Boolean habilitado;
 	
 	public Usuario(String nombre, String clave,String id) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.clave = clave;
+		habilitado = true;
 	}
 	
 	public String getNombre() {
@@ -27,6 +29,14 @@ public abstract class Usuario {
 
 	public String getId() {
 		return id;
+	}
+
+	public Boolean isHabilitado() {
+		return habilitado;
+	}
+
+	public void setHabilitado(Boolean habilitado) {
+		this.habilitado = habilitado;
 	}
 	
 	
