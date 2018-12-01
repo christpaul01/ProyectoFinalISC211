@@ -8,10 +8,11 @@ public class Componente {
 	protected String numeroSerie;
 	protected String modelo;
 	protected Double precioVenta;
+	protected String proveedor;
 	
 	
 	
-	public Componente(String marca, Double precioCompra, int cantidad, String numeroSerie, String modelo,Double precioVenta) {
+	public Componente(String marca, Double precioCompra, int cantidad, String numeroSerie, String modelo,Double precioVenta,String proveedor) {
 		super();
 		this.marca = marca;
 		this.precioCompra = precioCompra;
@@ -19,6 +20,17 @@ public class Componente {
 		this.numeroSerie = numeroSerie;
 		this.modelo = modelo;
 		this.precioVenta=precioVenta;
+		this.proveedor=proveedor;
+	}
+
+
+	public String getProveedor() {
+		return proveedor;
+	}
+
+
+	public void setProveedor(String proveedor) {
+		this.proveedor = proveedor;
 	}
 
 

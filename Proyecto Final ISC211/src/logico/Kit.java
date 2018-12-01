@@ -41,7 +41,6 @@ public class Kit {
 	}
 	public float precioTotal() {
 		float total=0;
-		int ind=0;
 		for (int i = 0; i < componentes.size(); i++) {	
 			total+=componentes.get(i).getPrecioVenta()-(componentes.get(i).getPrecioVenta()*0.10);
 		}

@@ -10,8 +10,8 @@ public class Motherboard extends Componente {
 	
 
 	public Motherboard(String marca, Double precioCompra, int cantidad, String numeroSerie, String modelo,
-			Double precioVenta, String socket, String ram) {
-		super(marca, precioCompra, cantidad, numeroSerie, modelo, precioVenta);
+			Double precioVenta,String proveedor, String socket, String ram) {
+		super(marca, precioCompra, cantidad, numeroSerie, modelo, precioVenta,proveedor);
 		this.socket = socket;
 		this.ram = ram;
 		discoDuro = new ArrayList<>();
