@@ -1,7 +1,15 @@
 package logico;
 
-public class Ram extends Componente {
+import java.io.Serializable;
 
+public class Ram extends Componente implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	
 	private Double memoria;
 	private String tipo;
 	

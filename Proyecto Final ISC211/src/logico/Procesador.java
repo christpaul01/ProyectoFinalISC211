@@ -1,6 +1,14 @@
 package logico;
 
-public class Procesador extends Componente {
+import java.io.Serializable;
+
+public class Procesador extends Componente implements Serializable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	
 	private String socket;
 	private Double velocidad;

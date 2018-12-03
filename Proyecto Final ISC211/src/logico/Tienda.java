@@ -11,6 +11,9 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import javax.swing.JFileChooser;
+
+
 public class Tienda implements Serializable {
 
 	/**
@@ -24,15 +27,40 @@ public class Tienda implements Serializable {
 	private ArrayList<Kit> kits;
 	private ArrayList<Usuario> usuarios;
 	private String nombre;
+	private static Tienda tienda;
 
-	public Tienda(String nombre) {
+	private Tienda() {
 		super();
-		this.nombre = nombre;
-	}	
+		
+		componentes = new ArrayList<Componente>();
+		clientes = new ArrayList<Cliente>();
+		facturas = new ArrayList<Factura>();
+		usuarios = new ArrayList<Usuario>();
+		kits = new ArrayList<Kit>();
+		
+		Administrador defecto = new Administrador("admin","admin","admin",asignarIdUsuario()); // A cambiar
+		insertarAdministrador(defecto);
+	}
+	
+	public static Tienda getInstance() {
+		if(tienda==null)
+		{
+			tienda = new Tienda();
+		}
+		return tienda;
+	}
 	
 	public String asignarIdCliente() {
 		
 		String idConCeros = String.format("%06d", (clientes.size() +1 ));
+		
+		return idConCeros;
+		
+	}
+	
+	public String asignarIdUsuario() {
+		
+		String idConCeros = String.format("%04d", (usuarios.size() +1 ));
 		
 		return idConCeros;
 		
@@ -49,6 +77,11 @@ public class Tienda implements Serializable {
 
 	public void insertarCliente(Cliente cliente) {
 		clientes.add(cliente);
+	}
+	
+	public void insertarProducto(Componente componente)
+	{
+		componentes.add(componente);
 	}
 
 	
@@ -157,30 +190,45 @@ public class Tienda implements Serializable {
 	public void setComponentes(ArrayList<Componente> componentes) {
 		this.componentes = componentes;
 	}
-	public void guardarTienda(File archivo,Tienda tienda ) {
-		ObjectOutputStream save;
-		try {
-			save = new ObjectOutputStream(new FileOutputStream(archivo));
-			save.writeObject(tienda);
-			save.close();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	
+	
+	
+	public void guardarDatos() throws IOException, ClassNotFoundException{
+		
+		
+		String url = urlEjecutable();
+		
+		new File(url).mkdir();
+		
+		
+		FileOutputStream foTienda = new FileOutputStream (url + "\\MisDatos.dat");
+		ObjectOutputStream oosTienda	= new ObjectOutputStream (foTienda);
+		
+		oosTienda.writeObject(tienda);
+		
+		foTienda.close();
+		
 	}
-	public Tienda leerTienda(File archivo) {
-		Tienda tienda=null;
-		try {
-			FileInputStream rd= new FileInputStream(archivo);
-			ObjectInputStream read= new ObjectInputStream(rd);
-				tienda= (Tienda)read.readObject();
-		} catch (IOException | ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-		return tienda;
+	
+	public void cargarDatos() throws IOException, ClassNotFoundException{
+		
+		String url = urlEjecutable();
+		
+		FileInputStream fiTienda = new FileInputStream (url + "\\MisDatos.dat");	
+		ObjectInputStream oisTienda = new ObjectInputStream(fiTienda);	
+			
+		tienda = (Tienda)oisTienda.readObject();
+		fiTienda.close();
+	
+	}
+	
+	public String urlEjecutable() {
+		
+		//Crea el String del link hacia el folder "Tienda" en 'Mis Documentos'
+		String url = new JFileChooser().getFileSystemView().getDefaultDirectory().toString() + "\\Tienda" ;
+		
+		return url;
+		
 	}
 
 

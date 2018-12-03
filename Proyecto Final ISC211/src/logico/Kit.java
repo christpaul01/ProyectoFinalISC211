@@ -1,8 +1,14 @@
 package logico;
-
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Kit {
+public class Kit implements Serializable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	
 	private ArrayList<Componente> componentes;
 	private final int descuento = 10;

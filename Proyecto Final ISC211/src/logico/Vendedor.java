@@ -1,6 +1,14 @@
 package logico;
 
-public class Vendedor extends Usuario {
+import java.io.Serializable;
+
+public class Vendedor extends Usuario implements Serializable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	
 	private int cantVentas;
 	
