@@ -28,8 +28,8 @@ import javax.swing.JPasswordField;
 public class Login extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField;
-	private JPasswordField passwordField;
+	private JTextField txtname;
+	private JPasswordField txtPass;
 	private Tienda tienda;
 	/**
 	 * Launch the application.
@@ -64,11 +64,11 @@ public class Login extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		textField = new JTextField();
-		textField.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		textField.setBounds(224, 54, 107, 20);
-		contentPane.add(textField);
-		textField.setColumns(10);
+		txtname = new JTextField();
+		txtname.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		txtname.setBounds(224, 54, 107, 20);
+		contentPane.add(txtname);
+		txtname.setColumns(10);
 		
 		JLabel lblUsuario = new JLabel("Usuario:");
 		lblUsuario.setFont(new Font("Tahoma", Font.PLAIN, 13));
@@ -87,9 +87,9 @@ public class Login extends JFrame {
 		btnCancelar.setBounds(312, 156, 89, 23);
 		contentPane.add(btnCancelar);
 		
-		passwordField = new JPasswordField();
-		passwordField.setBounds(224, 103, 107, 20);
-		contentPane.add(passwordField);
+		txtPass = new JPasswordField();
+		txtPass.setBounds(224, 103, 107, 20);
+		contentPane.add(txtPass);
 		
 		JLabel label = new JLabel("");
 		label.setIcon(new ImageIcon(Login.class.getResource("/img/iconfinder_user_male2_172626 (1).png")));
