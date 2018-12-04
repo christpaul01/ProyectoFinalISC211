@@ -153,11 +153,11 @@ public class Dashboard extends JFrame {
          panel_1.add(pnlChartVentas);
          
          //Agregango datos (Remplazar por funccion)
-         lcd_Ventas.addValue(80, "visitas", "Julio");
-         lcd_Ventas.addValue(300, "visitas", "Agosto");
-         lcd_Ventas.addValue(600, "visitas", "Septiembre");
-         lcd_Ventas.addValue(1200, "visitas", "Octubre"); 
-         lcd_Ventas.addValue(2400, "visitas", "Noviembre");
+         lcd_Ventas.addValue(80, "ventas", "Julio");
+         lcd_Ventas.addValue(300, "ventas", "Agosto");
+         lcd_Ventas.addValue(600, "ventas", "Septiembre");
+         lcd_Ventas.addValue(1200, "ventas", "Octubre"); 
+         lcd_Ventas.addValue(2400, "ventas", "Noviembre");
          lcd_Ventas.addValue(1000, "Compras", "Octubre");
          lcd_Ventas.addValue(1100, "Compras", "Noviembre");
          
@@ -1093,6 +1093,7 @@ public class Dashboard extends JFrame {
          		
          		txtSerial.setText(Tienda.getInstance().asignarSerial());
          		txtIdSerialKit.setText(Tienda.getInstance().asignarIdKit());
+         		modelInventario.clear();
          		
          		for(int i = 0; i < Tienda.getInstance().getComponentes().size(); i++)
          		{
