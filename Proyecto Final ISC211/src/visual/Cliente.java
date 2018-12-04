@@ -32,7 +32,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 
-public class Vendedor extends JDialog {
+public class Cliente extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private Tienda tienda;
@@ -59,7 +59,9 @@ public class Vendedor extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public Vendedor() {
+	public Cliente() {
+		setTitle("Cliente");
+		setVisible(true);
 		setBounds(100, 100, 697, 467);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(null);
@@ -88,7 +90,7 @@ public class Vendedor extends JDialog {
 		
 		JLabel label = new JLabel("");
 		label.setBounds(39, 50, 256, 256);
-		label.setIcon(new ImageIcon(Vendedor.class.getResource("/img/iconfinder_user-id_285641.png")));
+		label.setIcon(new ImageIcon(Cliente.class.getResource("/img/iconfinder_user-id_285641.png")));
 		CrearCliente.add(label);
 		
 		JLabel lblNombre = new JLabel("Nombre:");
@@ -216,12 +218,6 @@ public class Vendedor extends JDialog {
 			}
 		});
 		mnCliente.add(mntmListarCliente);
-		
-		JMenu mnFacturar = new JMenu("Facturar");
-		menuBar.add(mnFacturar);
-		
-		JMenuItem mntmCrearFactura = new JMenuItem("Compra");
-		mnFacturar.add(mntmCrearFactura);
 	}
 	public void cleanCliente() {
 		txtNombre.setText("");
