@@ -176,6 +176,8 @@ public class Cliente extends JDialog {
 				btnAceptar = new JButton("OK");
 				btnAceptar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
+						logico.Cliente cliente= new logico.Cliente(txtNombre.toString(), txtCedula.toString(), txtDireccion.toString(), txtTelefono.toString());
+						Tienda.getInstance().insertarCliente(cliente);
 						JOptionPane.showMessageDialog(null, "Operacion Exitosa", "Informacion", JOptionPane.INFORMATION_MESSAGE);
 						cleanCliente();
 					}

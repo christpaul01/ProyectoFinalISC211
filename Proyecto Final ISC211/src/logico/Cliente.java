@@ -15,11 +15,12 @@ public class Cliente implements Serializable {
 	private String telefono;
 	
 	
-	public Cliente(String nombre, String cedula, String direccion) {
+	public Cliente(String nombre, String cedula, String direccion,String telefono) {
 		super();
 		this.nombre = nombre;
 		this.cedula = cedula;
 		this.direccion = direccion;
+		this.telefono=telefono;
 	}
 	public String getNombre() {
 		return nombre;
