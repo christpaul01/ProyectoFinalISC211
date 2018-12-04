@@ -75,6 +75,14 @@ public class Tienda implements Serializable {
 		
 	}
 	
+	public String asignarIdKit() {
+		
+		String idConCeros = String.format("%04d", (kits.size() +1 ));
+		
+		return idConCeros;
+		
+	}
+	
 
 	public void insertarCliente(Cliente cliente) {
 		clientes.add(cliente);

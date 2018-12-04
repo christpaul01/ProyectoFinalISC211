@@ -24,7 +24,12 @@ public class Ram extends Componente implements Serializable {
 	public Double getMemoria() {
 		return memoria;
 	}
-
+	
+	public String toString()
+	{
+		String toString = marca + " " + modelo + " - " + "RD$ " +  precioVenta ;
+		return toString ;
+	}
 
 	public void setMemoria(Double memoria) {
 		this.memoria = memoria;

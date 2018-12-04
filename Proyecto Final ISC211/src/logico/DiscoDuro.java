@@ -25,7 +25,12 @@ public class DiscoDuro extends Componente implements Serializable {
 		return capacidad;
 	}
 
-
+	public String toString()
+	{
+		String toString = marca + " " + modelo + " - " + "RD$ " +  precioVenta ;
+		return toString ;
+	}
+	
 	public void setCapacidad(Double capacidad) {
 		this.capacidad = capacidad;
 	}

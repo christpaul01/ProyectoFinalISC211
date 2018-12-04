@@ -26,6 +26,11 @@ public class Motherboard extends Componente implements Serializable {
 		discoDuro = new ArrayList<>();
 	}
 
+	public String toString()
+	{
+		String toString = marca + " " + modelo + " - " + "RD$ " +  precioVenta ;
+		return toString ;
+	}
 
 	public String getSocket() {
 		return socket;

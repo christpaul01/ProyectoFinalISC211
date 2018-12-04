@@ -13,18 +13,30 @@ public class Kit implements Serializable {
 	private ArrayList<Componente> componentes;
 	private final int descuento = 10;
 	private String id;
+	private String nombre;
+	private Double precioFinal;
 	
 	
-	public Kit(ArrayList<Componente> componentes, String id) {
+	public Kit(String id, String nombre,ArrayList<Componente> componentes) {
 		super();
 		this.componentes = componentes;
 		this.id = id;
+		this.nombre = nombre;
+		this.precioFinal = precioTotal();
+		
+		
 	}
 
+	public String toString()
+	{
+		String toString = nombre +  " - " + "RD$ " + precioFinal;
+		return toString ;
+	}
 
 	public ArrayList<Componente> getComponentes() {
 		return componentes;
 	}
+	
 
 
 	public void setComponentes(ArrayList<Componente> componentes) {
@@ -45,12 +57,26 @@ public class Kit implements Serializable {
 	public int getDescuento() {
 		return descuento;
 	}
-	public float precioTotal() {
-		float total=0;
+	public Double precioTotal() {
+		Double total = 0.00 ;
 		for (int i = 0; i < componentes.size(); i++) {	
 			total+=componentes.get(i).getPrecioVenta()-(componentes.get(i).getPrecioVenta()*0.10);
 		}
 		return total;
+	}
+
+
+	public String getNombre() {
+		return nombre;
+	}
+
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public Double getPrecioFinal() {
+		return precioFinal;
 	}
 	
 	

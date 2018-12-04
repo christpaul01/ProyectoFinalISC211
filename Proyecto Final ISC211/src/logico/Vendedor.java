@@ -20,9 +20,25 @@ public class Vendedor extends Usuario implements Serializable {
 		
 	}
 
+	public String toString()
+	{
+		String habilitacion = "Habilitado";
+		
+		if(habilitado == false)
+			habilitacion = "Deshabilitado";
+		
+		String toString = nombre + " - " + habilitacion ;
+		
+		return toString;
+	}
 
 	public int getCantVentas() {
 		return cantVentas;
+	}
+	
+	public void incrementarVenta()
+	{
+		cantVentas++;
 	}
 
 	

@@ -24,6 +24,12 @@ public class Procesador extends Componente implements Serializable {
 	public String getSocket() {
 		return socket;
 	}
+	
+	public String toString()
+	{
+		String toString = marca + " " + modelo + " - " + "RD$ " +  precioVenta ;
+		return toString ;
+	}
 
 	public void setSocket(String socket) {
 		this.socket = socket;

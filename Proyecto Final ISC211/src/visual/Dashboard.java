@@ -15,7 +15,9 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.title.TextTitle;
 import org.jfree.data.category.DefaultCategoryDataset;
 import logico.Administrador;
+import logico.DiscoDuro;
 import logico.Motherboard;
+import logico.Procesador;
 import logico.Ram;
 import logico.Tienda;
 import logico.Vendedor;
@@ -65,8 +67,8 @@ public class Dashboard extends JFrame {
 	private JTextField txtMarca;
 	private JTextField txtModelo;
 	private JTextField txtSocketMobo;
-	private JTextField textField_4;
-	private JTextField textField_5;
+	private JTextField txtIdSerialKit;
+	private JTextField txtNombreKit;
 	private JTextField txtCPUSocket;
 	private JSeparator sprtrHDD;
 	private JTextField txtUserAdmin;
@@ -605,103 +607,102 @@ public class Dashboard extends JFrame {
          cmbPrtoMobo.setBounds(594, 51, 195, 18);
          panelMobo.add(cmbPrtoMobo);
          
+         
+         
          JPanel pnlKits = new JPanel();
          tabsComponentes.addTab("Kits", null, pnlKits, null);
          pnlKits.setLayout(null);
          
-         JButton btnCancelar_1 = new JButton("Cancelar");
-         btnCancelar_1.addActionListener(new ActionListener() {
-         	public void actionPerformed(ActionEvent e) {
-         	}
-         });
-         btnCancelar_1.setBounds(814, 466, 89, 23);
-         pnlKits.add(btnCancelar_1);
+         JList listKits = new JList();
+         listKits.setBounds(470, 40, 433, 319);
+         pnlKits.add(listKits);
          
-         JButton btnAcceptar_1 = new JButton("Acceptar");
-         btnAcceptar_1.addActionListener(new ActionListener() {
-         	public void actionPerformed(ActionEvent e) {
-         	}
-         });
-         btnAcceptar_1.setBounds(715, 466, 89, 23);
-         pnlKits.add(btnAcceptar_1);
          
-         JPanel panel_3 = new JPanel();
-         panel_3.setBorder(new LineBorder(Color.LIGHT_GRAY, 1, true));
-         panel_3.setBounds(10, 40, 438, 319);
-         pnlKits.add(panel_3);
-         panel_3.setLayout(null);
+         JPanel pnlRegKit = new JPanel();
+         pnlRegKit.setBorder(new LineBorder(Color.LIGHT_GRAY, 1, true));
+         pnlRegKit.setBounds(10, 40, 438, 319);
+         pnlKits.add(pnlRegKit);
+         pnlRegKit.setLayout(null);
          
          JLabel lblId = new JLabel("ID:");
          lblId.setBounds(76, 30, 46, 14);
-         panel_3.add(lblId);
+         pnlRegKit.add(lblId);
          
-         textField_4 = new JTextField();
-         textField_4.setEditable(false);
-         textField_4.setBounds(186, 26, 179, 23);
-         panel_3.add(textField_4);
-         textField_4.setColumns(10);
+         txtIdSerialKit = new JTextField();
+         txtIdSerialKit.setEditable(false);
+         txtIdSerialKit.setBounds(186, 26, 179, 23);
+         pnlRegKit.add(txtIdSerialKit);
+         txtIdSerialKit.setColumns(10);
          
          JLabel lblMotherboard = new JLabel("Motherboard:");
          lblMotherboard.setBounds(76, 98, 100, 14);
-         panel_3.add(lblMotherboard);
+         pnlRegKit.add(lblMotherboard);
          
-         JComboBox comboBox_1 = new JComboBox();
-         comboBox_1.setBounds(186, 94, 179, 23);
-         panel_3.add(comboBox_1);
-         comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"Ninguno"}));
+         JComboBox cmbMoboKit = new JComboBox();
+         cmbMoboKit.setToolTipText("Motherboards");
+         cmbMoboKit.setBounds(186, 94, 179, 23);
+         pnlRegKit.add(cmbMoboKit);
+         cmbMoboKit.setModel(new DefaultComboBoxModel(new String[] {"Ninguno"}));
+         
+         
          
          JLabel lblRam_1 = new JLabel("RAM:");
          lblRam_1.setBounds(76, 132, 46, 14);
-         panel_3.add(lblRam_1);
+         pnlRegKit.add(lblRam_1);
          
-         JComboBox comboBox_2 = new JComboBox();
-         comboBox_2.setBounds(186, 128, 179, 23);
-         panel_3.add(comboBox_2);
-         comboBox_2.setModel(new DefaultComboBoxModel(new String[] {"Ninguno"}));
+         JComboBox cmbRamKit = new JComboBox();
+         cmbRamKit.setToolTipText("Ram");
+         cmbRamKit.setBounds(186, 128, 179, 23);
+         pnlRegKit.add(cmbRamKit);
+         cmbRamKit.setModel(new DefaultComboBoxModel(new String[] {"Ninguno"}));
          
-         JComboBox comboBox_3 = new JComboBox();
-         comboBox_3.setBounds(186, 162, 179, 23);
-         panel_3.add(comboBox_3);
-         comboBox_3.setModel(new DefaultComboBoxModel(new String[] {"Ninguno"}));
+         JComboBox cmbCPUKit = new JComboBox();
+         cmbCPUKit.setToolTipText("?");
+         cmbCPUKit.setBounds(186, 162, 179, 23);
+         pnlRegKit.add(cmbCPUKit);
+         cmbCPUKit.setModel(new DefaultComboBoxModel(new String[] {"Ninguno"}));
          
          JLabel lblProcesador = new JLabel("Procesador:");
          lblProcesador.setBounds(76, 166, 100, 14);
-         panel_3.add(lblProcesador);
+         pnlRegKit.add(lblProcesador);
          
-         JComboBox comboBox_4 = new JComboBox();
-         comboBox_4.setBounds(186, 196, 179, 23);
-         panel_3.add(comboBox_4);
-         comboBox_4.setModel(new DefaultComboBoxModel(new String[] {"Ninguno"}));
+         JComboBox cmbHDDkit = new JComboBox();
+         cmbHDDkit.setToolTipText("??");
+         cmbHDDkit.setBounds(186, 196, 179, 23);
+         pnlRegKit.add(cmbHDDkit);
+         cmbHDDkit.setModel(new DefaultComboBoxModel(new String[] {"Ninguno"}));
          
          JLabel lblHardDrive = new JLabel("Disco Duro:");
          lblHardDrive.setBounds(76, 200, 89, 14);
-         panel_3.add(lblHardDrive);
+         pnlRegKit.add(lblHardDrive);
          
          JButton btnVisualizar = new JButton("Visualizar");
          btnVisualizar.addActionListener(new ActionListener() {
          	public void actionPerformed(ActionEvent e) {
+         		
+         		
          	}
          });
          btnVisualizar.setBounds(339, 285, 89, 23);
-         panel_3.add(btnVisualizar);
+         pnlRegKit.add(btnVisualizar);
          
-         textField_5 = new JTextField();
-         textField_5.setColumns(10);
-         textField_5.setBounds(186, 60, 179, 23);
-         panel_3.add(textField_5);
+         txtNombreKit = new JTextField();
+         txtNombreKit.setColumns(10);
+         txtNombreKit.setBounds(186, 60, 179, 23);
+         pnlRegKit.add(txtNombreKit);
          
          JLabel lblNombre_1 = new JLabel("Nombre:");
          lblNombre_1.setBounds(76, 64, 46, 14);
-         panel_3.add(lblNombre_1);
+         pnlRegKit.add(lblNombre_1);
          
          JLabel lblCantidad_1 = new JLabel("Cantidad:");
          lblCantidad_1.setBounds(76, 236, 89, 14);
-         panel_3.add(lblCantidad_1);
+         pnlRegKit.add(lblCantidad_1);
          
          JSpinner spinner = new JSpinner();
          spinner.setModel(new SpinnerNumberModel(0, 0, 100, 10));
          spinner.setBounds(276, 233, 89, 17);
-         panel_3.add(spinner);
+         pnlRegKit.add(spinner);
          
          JSeparator separator_4 = new JSeparator();
          separator_4.setOrientation(SwingConstants.VERTICAL);
@@ -709,9 +710,7 @@ public class Dashboard extends JFrame {
          separator_4.setBounds(458, 40, 2, 438);
          pnlKits.add(separator_4);
          
-         JList list = new JList();
-         list.setBounds(470, 40, 433, 319);
-         pnlKits.add(list);
+         
          
          JLabel lblPrecioFinal = new JLabel("Precio Final:");
          lblPrecioFinal.setBounds(470, 408, 89, 14);
@@ -730,6 +729,8 @@ public class Dashboard extends JFrame {
          label_1.setBounds(543, 408, 89, 14);
          pnlKits.add(label_1);
          
+         
+         
          JPanel pnlInventario = new JPanel();
          tabsComponentes.addTab("Inventario", null, pnlInventario, null);
          pnlInventario.setLayout(null);
@@ -742,7 +743,25 @@ public class Dashboard extends JFrame {
          tabsVendedores.setVisible(false);
          tabsAdmin.setVisible(false);
          
+         JButton btnCancelarKit = new JButton("Cancelar");
+         btnCancelarKit.addActionListener(new ActionListener() {
+         	public void actionPerformed(ActionEvent e) {
+         	}
+         });
+         btnCancelarKit.setBounds(814, 466, 89, 23);
+         pnlKits.add(btnCancelarKit);
          
+         JButton btnAcceptarKit = new JButton("Acceptar");
+         btnAcceptarKit.addActionListener(new ActionListener() {
+         	public void actionPerformed(ActionEvent e) {
+         		
+         		txtIdSerialKit.setText(Tienda.getInstance().asignarIdKit());
+         		
+         		
+         	}
+         });
+         btnAcceptarKit.setBounds(715, 466, 89, 23);
+         pnlKits.add(btnAcceptarKit);
          
          JPanel pnlHDD = new JPanel();
          pnlHDD.setLayout(null);
@@ -1068,6 +1087,27 @@ public class Dashboard extends JFrame {
          		tabsComponentes.setVisible(true);
          		
          		txtSerial.setText(Tienda.getInstance().asignarSerial());
+         		txtIdSerialKit.setText(Tienda.getInstance().asignarIdKit());
+         		
+         		for(int i = 0; i < Tienda.getInstance().getComponentes().size(); i++)
+         		{
+         			if(Tienda.getInstance().getComponentes().get(i) instanceof Motherboard)
+         			cmbMoboKit.addItem(Tienda.getInstance().getComponentes().get(i));
+         			
+         			if(Tienda.getInstance().getComponentes().get(i) instanceof Ram)
+         				cmbRamKit.addItem(Tienda.getInstance().getComponentes().get(i));
+         			
+         			if(Tienda.getInstance().getComponentes().get(i) instanceof Procesador)
+         				cmbCPUKit.addItem(Tienda.getInstance().getComponentes().get(i));
+         			
+         			if(Tienda.getInstance().getComponentes().get(i) instanceof DiscoDuro)
+         				cmbHDDkit.addItem(Tienda.getInstance().getComponentes().get(i));
+         			
+         			
+         			
+         		}
+         		
+         		
          		
          		
          	}
