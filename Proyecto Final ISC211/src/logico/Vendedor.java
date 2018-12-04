@@ -13,7 +13,7 @@ public class Vendedor extends Usuario implements Serializable {
 	private int cantVentas;
 	
 	
-	public Vendedor(String nombre, String clave, String id) {
+	public Vendedor(String nombre, char[] clave, String id) {
 		super(nombre, clave,id);
 		
 		cantVentas = 0;

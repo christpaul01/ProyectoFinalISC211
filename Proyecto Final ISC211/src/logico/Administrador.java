@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class Administrador extends Usuario implements Serializable {
 
 	private String nombreUsuario;
-	public Administrador(String nombre, String clave, String nombreUsuario,String id) {
+	public Administrador(String nombre, char[] clave, String nombreUsuario,String id) {
 		super(nombre, clave,id);
 		this.nombreUsuario = nombreUsuario;
 	}

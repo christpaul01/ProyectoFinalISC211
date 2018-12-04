@@ -14,6 +14,12 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.title.TextTitle;
 import org.jfree.data.category.DefaultCategoryDataset;
+import logico.Administrador;
+import logico.Motherboard;
+import logico.Ram;
+import logico.Tienda;
+import logico.Vendedor;
+
 import javax.swing.JTabbedPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -21,6 +27,9 @@ import javax.swing.JRadioButton;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.Date;
 import java.awt.event.ActionEvent;
 import javax.swing.JButton;
 import javax.swing.border.MatteBorder;
@@ -34,6 +43,7 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.BevelBorder;
@@ -43,22 +53,24 @@ import javax.swing.border.TitledBorder;
 public class Dashboard extends JFrame {
 
 	private JPanel pnlAdminstracion;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JPasswordField passwordField;
-	private JPasswordField passwordField_1;
+	private JTextField txtIdVendedor;
+	private JTextField txtNombreVendedor;
+	private JPasswordField pswdVendedor;
+	private JPasswordField pswdVendedor2;
 	private JTextField txtFldidUsuario;
-	private JTextField textField_3;
+	private JTextField txtNombreAdmin;
 	private JPasswordField passAdmin;
 	private JPasswordField passConfAdmin;
 	private JTextField txtSerial;
 	private JTextField txtMarca;
 	private JTextField txtModelo;
-	private JTextField textField_2;
+	private JTextField txtSocketMobo;
 	private JTextField textField_4;
 	private JTextField textField_5;
 	private JTextField txtCPUSocket;
 	private JSeparator sprtrHDD;
+	private JTextField txtUserAdmin;
+	
 
 	/**
 	 * Launch the application.
@@ -82,7 +94,7 @@ public class Dashboard extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Dashboard() {
+	public Dashboard() throws IOException, ClassNotFoundException {
 		setResizable(false);
 		setTitle("ADMINISTRACION -- Tienda V.0.98");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -102,6 +114,15 @@ public class Dashboard extends JFrame {
 			e1.printStackTrace();
 		}
 		pnlAdminstracion.setLayout(null);
+		
+		try {
+			Tienda.getInstance().cargarDatos();
+		} catch (Exception e) {
+			
+			
+			Tienda.getInstance().guardarDatos();
+		}
+		
 		
 		JTabbedPane tabs_Dashboard = new JTabbedPane(JTabbedPane.TOP);
 		tabs_Dashboard.setBounds(203, 11, 918, 528);
@@ -204,65 +225,114 @@ public class Dashboard extends JFrame {
          pnlAdminstracion.add(tabsVendedores);
          
          
-         JPanel panel = new JPanel();
-         tabsVendedores.addTab("Registrar", null, panel, null);
-         panel.setLayout(null);
+         JPanel pnlRegVend = new JPanel();
+         tabsVendedores.addTab("Registrar", null, pnlRegVend, null);
+         pnlRegVend.setLayout(null);
          
          JLabel lblIdUsuario = new JLabel("ID Usuario:");
          lblIdUsuario.setBounds(441, 100, 93, 14);
-         panel.add(lblIdUsuario);
+         pnlRegVend.add(lblIdUsuario);
          
          JLabel lblNombre = new JLabel("Nombre:");
          lblNombre.setBounds(441, 131, 93, 14);
-         panel.add(lblNombre);
+         pnlRegVend.add(lblNombre);
          
          JLabel lblContrasena = new JLabel("Contrasena:");
          lblContrasena.setBounds(441, 165, 93, 14);
-         panel.add(lblContrasena);
+         pnlRegVend.add(lblContrasena);
          
-         textField = new JTextField();
-         textField.setBounds(544, 100, 140, 17);
-         panel.add(textField);
-         textField.setColumns(10);
+         txtIdVendedor = new JTextField();
+         txtIdVendedor.setEditable(false);
+         txtIdVendedor.setBounds(544, 100, 140, 17);
+         pnlRegVend.add(txtIdVendedor);
+         txtIdVendedor.setColumns(10);
          
-         textField_1 = new JTextField();
-         textField_1.setColumns(10);
-         textField_1.setBounds(544, 131, 140, 17);
-         panel.add(textField_1);
+         txtNombreVendedor = new JTextField();
+         txtNombreVendedor.setColumns(10);
+         txtNombreVendedor.setBounds(544, 131, 140, 17);
+         pnlRegVend.add(txtNombreVendedor);
          
-         passwordField = new JPasswordField();
-         passwordField.setBounds(544, 165, 140, 17);
-         panel.add(passwordField);
+         pswdVendedor = new JPasswordField();
+         pswdVendedor.setBounds(544, 165, 140, 17);
+         pnlRegVend.add(pswdVendedor);
          
          JLabel lblConfirmar = new JLabel("Confirmar:");
          lblConfirmar.setBounds(441, 195, 80, 14);
-         panel.add(lblConfirmar);
+         pnlRegVend.add(lblConfirmar);
          
-         passwordField_1 = new JPasswordField();
-         passwordField_1.setBounds(544, 193, 140, 17);
-         panel.add(passwordField_1);
+         pswdVendedor2 = new JPasswordField();
+         pswdVendedor2.setBounds(544, 193, 140, 17);
+         pnlRegVend.add(pswdVendedor2);
          
-         JButton btnAcceptar = new JButton("Acceptar");
-         btnAcceptar.addActionListener(new ActionListener() {
+         JButton btnAcceptarVendedor = new JButton("Acceptar");
+         btnAcceptarVendedor.addActionListener(new ActionListener() {
+         	public void actionPerformed(ActionEvent e) {
+         		
+         		String nombreVendedor = txtNombreVendedor.getText();
+         		
+         		if(nombreVendedor.length() != 0  &&  (Arrays.equals(pswdVendedor.getPassword(), pswdVendedor2.getPassword()) ) 
+             			&& pswdVendedor.getPassword().length >= 4	 ) 
+             		{
+         				Vendedor vendedor = new Vendedor(nombreVendedor,pswdVendedor.getPassword(),Tienda.getInstance().asignarIdUsuario());
+             			Tienda.getInstance().insertarVendedor(vendedor);;
+             			txtIdVendedor.setText(Tienda.getInstance().asignarIdUsuario());
+             			txtNombreVendedor.setText("");
+             			pswdVendedor.setText(null);
+             			pswdVendedor2.setText(null);
+             			
+             			try {
+    						Tienda.getInstance().guardarDatos();//Guarda los datos
+    						
+    						JOptionPane.showMessageDialog(null, "Administrador guardado en 'Mis Documentos'!","¡Guardado!", JOptionPane.PLAIN_MESSAGE);
+    					} catch (ClassNotFoundException x) {
+    						JOptionPane.showMessageDialog(null, "No Se Pudo Guardar","¡Error!", JOptionPane.PLAIN_MESSAGE);
+    						x.printStackTrace();
+    					} catch (IOException x) {
+    						// TODO Auto-generated catch block
+    						JOptionPane.showMessageDialog(null, "No Se Pudo Guardar","¡Error!", JOptionPane.PLAIN_MESSAGE);
+    						x.printStackTrace();
+    					}
+             			
+             			
+             		}
+             		
+             		if(nombreVendedor.length() < 4 && nombreVendedor.length() > 0  )
+             		{
+             			JOptionPane.showMessageDialog(null, "Nombre no suficientemente largo!","¡Error!", JOptionPane.PLAIN_MESSAGE);
+             		}
+             		
+             		
+             		
+             		if(!(Arrays.equals(pswdVendedor.getPassword(), pswdVendedor2.getPassword())))
+             		{
+             			JOptionPane.showMessageDialog(null, "Verificar las contrasenas","¡Error!", JOptionPane.PLAIN_MESSAGE);
+             		}
+             		
+             		if( pswdVendedor.getPassword().length < 4 && pswdVendedor.getPassword().length > 0  &&(Arrays.equals(pswdVendedor.getPassword(), pswdVendedor.getPassword())))
+             		{
+             			JOptionPane.showMessageDialog(null, "Insertar una contrasena de minimo 4 caracteres!","¡Error!", JOptionPane.PLAIN_MESSAGE);
+             		}
+         		
+         		
+         		
+         	}
+         });
+         btnAcceptarVendedor.setBounds(573, 242, 103, 23);
+         pnlRegVend.add(btnAcceptarVendedor);
+         
+         JButton btnCancelarVendedor = new JButton("Cancelar");
+         btnCancelarVendedor.addActionListener(new ActionListener() {
          	public void actionPerformed(ActionEvent e) {
          	}
          });
-         btnAcceptar.setBounds(573, 242, 103, 23);
-         panel.add(btnAcceptar);
-         
-         JButton btnCancelar = new JButton("Cancelar");
-         btnCancelar.addActionListener(new ActionListener() {
-         	public void actionPerformed(ActionEvent e) {
-         	}
-         });
-         btnCancelar.setBounds(441, 242, 103, 23);
-         panel.add(btnCancelar);
+         btnCancelarVendedor.setBounds(441, 242, 103, 23);
+         pnlRegVend.add(btnCancelarVendedor);
          
          JSeparator separator = new JSeparator();
          separator.setOrientation(SwingConstants.VERTICAL);
          separator.setForeground(Color.LIGHT_GRAY);
          separator.setBounds(399, 47, 11, 400);
-         panel.add(separator);
+         pnlRegVend.add(separator);
          
          JPanel panel_2 = new JPanel();
          tabsVendedores.addTab("Listar", null, panel_2, null);
@@ -280,47 +350,115 @@ public class Dashboard extends JFrame {
          pnlRegAdmin.setLayout(null);
          tabsAdmin.addTab("Registrar", null, pnlRegAdmin, null);
          
+         JPanel panelLogAdmin = new JPanel();
+         panelLogAdmin.setBorder(new LineBorder(Color.LIGHT_GRAY));
+         panelLogAdmin.setBounds(420, 49, 381, 266);
+         pnlRegAdmin.add(panelLogAdmin);
+         panelLogAdmin.setLayout(null);
+         
          JLabel lblUsuario = new JLabel("ID Usuario:");
-         lblUsuario.setBounds(441, 100, 93, 14);
-         pnlRegAdmin.add(lblUsuario);
+         lblUsuario.setBounds(69, 38, 93, 14);
+         panelLogAdmin.add(lblUsuario);
          
          JLabel lblNombreAdmin = new JLabel("Nombre:");
-         lblNombreAdmin.setBounds(441, 131, 93, 14);
-         pnlRegAdmin.add(lblNombreAdmin);
+         lblNombreAdmin.setBounds(69, 104, 93, 14);
+         panelLogAdmin.add(lblNombreAdmin);
          
          JLabel lblContAdmin = new JLabel("Contrasena:");
-         lblContAdmin.setBounds(441, 165, 93, 14);
-         pnlRegAdmin.add(lblContAdmin);
+         lblContAdmin.setBounds(69, 136, 93, 14);
+         panelLogAdmin.add(lblContAdmin);
          
          txtFldidUsuario = new JTextField();
+         txtFldidUsuario.setBounds(172, 36, 140, 17);
+         panelLogAdmin.add(txtFldidUsuario);
+         txtFldidUsuario.setEditable(false);
          txtFldidUsuario.setColumns(10);
-         txtFldidUsuario.setBounds(544, 100, 140, 17);
-         pnlRegAdmin.add(txtFldidUsuario);
          
-         textField_3 = new JTextField();
-         textField_3.setColumns(10);
-         textField_3.setBounds(544, 131, 140, 17);
-         pnlRegAdmin.add(textField_3);
+         txtNombreAdmin = new JTextField();
+         txtNombreAdmin.setBounds(172, 102, 140, 17);
+         panelLogAdmin.add(txtNombreAdmin);
+         txtNombreAdmin.setColumns(10);
          
          passAdmin = new JPasswordField();
-         passAdmin.setBounds(544, 165, 140, 17);
-         pnlRegAdmin.add(passAdmin);
+         passAdmin.setBounds(172, 136, 140, 17);
+         panelLogAdmin.add(passAdmin);
          
          JLabel lblConfAdmin = new JLabel("Confirmar:");
-         lblConfAdmin.setBounds(441, 195, 80, 14);
-         pnlRegAdmin.add(lblConfAdmin);
+         lblConfAdmin.setBounds(69, 166, 80, 14);
+         panelLogAdmin.add(lblConfAdmin);
          
          passConfAdmin = new JPasswordField();
-         passConfAdmin.setBounds(544, 193, 140, 17);
-         pnlRegAdmin.add(passConfAdmin);
+         passConfAdmin.setBounds(172, 164, 140, 17);
+         panelLogAdmin.add(passConfAdmin);
          
          JButton btnAccptAdmin = new JButton("Acceptar");
-         btnAccptAdmin.setBounds(573, 242, 103, 23);
-         pnlRegAdmin.add(btnAccptAdmin);
+         btnAccptAdmin.setBounds(209, 232, 103, 23);
+         panelLogAdmin.add(btnAccptAdmin);
          
          JButton btnCnclAdmin = new JButton("Cancelar");
-         btnCnclAdmin.setBounds(441, 242, 103, 23);
-         pnlRegAdmin.add(btnCnclAdmin);
+         btnCnclAdmin.setBounds(69, 232, 103, 23);
+         panelLogAdmin.add(btnCnclAdmin);
+         
+         JLabel lblUserAdmin = new JLabel("Usuario:");
+         lblUserAdmin.setBounds(69, 76, 46, 14);
+         panelLogAdmin.add(lblUserAdmin);
+         
+         txtUserAdmin = new JTextField();
+         txtUserAdmin.setBounds(172, 74, 140, 17);
+         panelLogAdmin.add(txtUserAdmin);
+         txtUserAdmin.setColumns(10);
+         btnAccptAdmin.addActionListener(new ActionListener() {
+         	public void actionPerformed(ActionEvent arg0) {
+         		
+         		String idAdmin = Tienda.getInstance().asignarIdUsuario();
+         		String nombreAdmin = txtNombreAdmin.getText();
+         		String username = txtUserAdmin.getText();
+         		
+         		
+         		if(nombreAdmin.length() != 0 && username.length() != 0 &&  (Arrays.equals(passAdmin.getPassword(), passConfAdmin.getPassword()) ) 
+         			&& passAdmin.getPassword().length >= 4	 ) 
+         		{
+         			Administrador admin = new Administrador(nombreAdmin,passAdmin.getPassword(),username,idAdmin);
+         			Tienda.getInstance().insertarAdministrador(admin);
+         			txtFldidUsuario.setText(Tienda.getInstance().asignarIdUsuario());
+         			txtUserAdmin.setText("");
+         			txtNombreAdmin.setText("");
+         			passAdmin.setText(null);
+         			passConfAdmin.setText(null);
+         			
+         			try {
+						Tienda.getInstance().guardarDatos();
+						JOptionPane.showMessageDialog(null, "Administrador guardado en 'Mis Documentos'!","¡Guardado!", JOptionPane.PLAIN_MESSAGE);
+					} catch (ClassNotFoundException e) {
+						JOptionPane.showMessageDialog(null, "No Se Pudo Guardar","¡Error!", JOptionPane.PLAIN_MESSAGE);
+						e.printStackTrace();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						JOptionPane.showMessageDialog(null, "No Se Pudo Guardar","¡Error!", JOptionPane.PLAIN_MESSAGE);
+						e.printStackTrace();
+					}
+         			
+         			
+         		}
+         		
+         		if(nombreAdmin.length() < 4)
+         		{
+         			JOptionPane.showMessageDialog(null, "Nombre no suficientemente largo!","¡Error!", JOptionPane.PLAIN_MESSAGE);
+         		}
+         		
+         		
+         		
+         		if(!(Arrays.equals(passAdmin.getPassword(), passConfAdmin.getPassword())))
+         		{
+         			JOptionPane.showMessageDialog(null, "Verificar las contrasenas","¡Error!", JOptionPane.PLAIN_MESSAGE);
+         		}
+         		
+         		if( passAdmin.getPassword().length < 4 && passAdmin.getPassword().length > 0  &&(Arrays.equals(passAdmin.getPassword(), passConfAdmin.getPassword())))
+         		{
+         			JOptionPane.showMessageDialog(null, "Insertar una contrasena de minimo 4 caracteres!","¡Error!", JOptionPane.PLAIN_MESSAGE);
+         		}
+         	}
+         });
          
          JSeparator separator_1 = new JSeparator();
          separator_1.setOrientation(SwingConstants.VERTICAL);
@@ -357,6 +495,8 @@ public class Dashboard extends JFrame {
          pnlCompComun.setLayout(null);
          
          txtSerial = new JTextField();
+         txtSerial.setHorizontalAlignment(SwingConstants.CENTER);
+         txtSerial.setEditable(false);
          txtSerial.setBounds(115, 25, 210, 20);
          pnlCompComun.add(txtSerial);
          txtSerial.setColumns(10);
@@ -422,7 +562,7 @@ public class Dashboard extends JFrame {
          
          JComboBox cmbProveedor = new JComboBox();
          cmbProveedor.setMaximumRowCount(100);
-         cmbProveedor.setModel(new DefaultComboBoxModel(new String[] {"<Seleccionar>"}));
+         cmbProveedor.setModel(new DefaultComboBoxModel(new String[] {"<Seleccionar>", "Test1", "Test2"}));
          cmbProveedor.setBounds(594, 25, 195, 21);
          pnlCompComun.add(cmbProveedor);
          
@@ -436,10 +576,10 @@ public class Dashboard extends JFrame {
          lblSocket.setBounds(10, 53, 46, 14);
          panelMobo.add(lblSocket);
          
-         textField_2 = new JTextField();
-         textField_2.setColumns(10);
-         textField_2.setBounds(112, 50, 210, 20);
-         panelMobo.add(textField_2);
+         txtSocketMobo = new JTextField();
+         txtSocketMobo.setColumns(10);
+         txtSocketMobo.setBounds(112, 50, 210, 20);
+         panelMobo.add(txtSocketMobo);
          
          JLabel lblRam = new JLabel("Ram:");
          lblRam.setBounds(10, 84, 46, 14);
@@ -460,10 +600,10 @@ public class Dashboard extends JFrame {
          lblPuerto.setBounds(458, 53, 161, 14);
          panelMobo.add(lblPuerto);
          
-         JComboBox comboBox = new JComboBox();
-         comboBox.setModel(new DefaultComboBoxModel(new String[] {"<Seleccionar>", "IDE", "SATA", "SATA II", "SATA III"}));
-         comboBox.setBounds(594, 51, 195, 18);
-         panelMobo.add(comboBox);
+         JComboBox cmbPrtoMobo = new JComboBox();
+         cmbPrtoMobo.setModel(new DefaultComboBoxModel(new String[] {"<Seleccionar>", "IDE", "SATA", "SATA II", "SATA III"}));
+         cmbPrtoMobo.setBounds(594, 51, 195, 18);
+         panelMobo.add(cmbPrtoMobo);
          
          JPanel pnlKits = new JPanel();
          tabsComponentes.addTab("Kits", null, pnlKits, null);
@@ -683,10 +823,10 @@ public class Dashboard extends JFrame {
          lblMemoriagb.setBounds(10, 36, 100, 14);
          pnlRam.add(lblMemoriagb);
          
-         JSpinner spinner_1 = new JSpinner();
-         spinner_1.setModel(new SpinnerNumberModel(0.0, 0.0, 64.0, 1.0));
-         spinner_1.setBounds(120, 33, 121, 20);
-         pnlRam.add(spinner_1);
+         JSpinner spnrMemoria = new JSpinner();
+         spnrMemoria.setModel(new SpinnerNumberModel(0.0, 0.0, 64.0, 1.0));
+         spnrMemoria.setBounds(120, 33, 121, 20);
+         pnlRam.add(spnrMemoria);
          
          JLabel lblTipo = new JLabel("Tipo de memoria:");
          lblTipo.setBounds(459, 36, 121, 14);
@@ -780,6 +920,95 @@ public class Dashboard extends JFrame {
          pnlRegComp.add(btnCancelar_2);
          
          JButton btnAcceptar_2 = new JButton("Acceptar");
+         btnAcceptar_2.addActionListener(new ActionListener() {
+         	public void actionPerformed(ActionEvent arg0) {
+         		
+         		String serial = txtSerial.getText();
+         		String marca =  txtMarca.getText();
+         		String modelo = txtModelo.getText();
+         		Double precioCompra = (Double) spnrCompra.getValue();
+         		Double precioVenta = (Double) spnrVenta.getValue();
+         		
+         		int cantProducto = (int) spnrCantComp.getValue();
+         		String proveedor = cmbProveedor.getSelectedItem().toString(); //Cambiar...
+         		
+         		if(rdbtnMotherboard.isSelected()) //Motherboard
+         		{
+         			
+         			String socket = txtSocketMobo.getText();
+         			String tipoRam = cmbRam.getSelectedItem().toString();
+         			String tipoHdd = cmbPrtoMobo.getSelectedItem().toString();
+         			
+         			Motherboard mobo = new Motherboard(marca, precioCompra, cantProducto, serial, modelo, precioVenta, proveedor, socket, tipoRam,tipoHdd);
+         			
+         			Tienda.getInstance().insertarProducto(mobo);
+         			if(serial != Tienda.getInstance().asignarSerial())
+         			{
+         				txtSerial.setText("");
+         				txtMarca.setText(null);
+         				txtModelo.setText(null);
+         				spnrCompra.setValue(0);
+         				spnrVenta.setValue(0);
+         				txtSocketMobo.setText(null);
+         				cmbRam.setSelectedIndex(-1);
+         				cmbPrtoMobo.setSelectedIndex(-1);
+         				
+         			}
+         			
+         			try {
+						Tienda.getInstance().guardarDatos();
+						JOptionPane.showMessageDialog(null, "Componente guardado en 'Mis Documentos'!","¡Guardado!", JOptionPane.PLAIN_MESSAGE);
+					} catch (ClassNotFoundException | IOException e) {
+						// TODO Auto-generated catch block
+						JOptionPane.showMessageDialog(null, "No se ha podido guardar en 'Mis Documentos'!","¡Error!", JOptionPane.PLAIN_MESSAGE);
+						e.printStackTrace();
+					}
+         			
+         			txtSerial.setText(Tienda.getInstance().asignarSerial()); // Autoincrementa el serial
+         			
+         		}
+         		
+         		if(rdbtnRam.isSelected())	//Memoria Ram
+         		{
+         			
+         			Double memoria 		= (Double) spnrMemoria.getValue();
+         			String tipoMemoria  = cmbTipoRam.getSelectedItem().toString();
+         			
+         			Ram miRam = new Ram(marca, precioCompra, cantProducto, serial, modelo, precioVenta, proveedor,memoria,tipoMemoria);
+         			
+         			Tienda.getInstance().insertarProducto(miRam);
+         			if(serial != Tienda.getInstance().asignarSerial())
+         			{
+         				txtSerial.setText("");
+         				txtMarca.setText(null);
+         				txtModelo.setText(null);
+         				spnrCompra.setValue(0);
+         				spnrVenta.setValue(0);
+         				
+         				spnrMemoria.setValue(0);
+         				cmbTipoRam.setSelectedIndex(-1);
+         				
+         			}
+         			
+         			try {
+						Tienda.getInstance().guardarDatos();
+						JOptionPane.showMessageDialog(null, "Componente guardado en 'Mis Documentos'!","¡Guardado!", JOptionPane.PLAIN_MESSAGE);
+					} catch (ClassNotFoundException | IOException e) {
+						// TODO Auto-generated catch block
+						JOptionPane.showMessageDialog(null, "No se ha podido guardar en 'Mis Documentos'!","¡Error!", JOptionPane.PLAIN_MESSAGE);
+						e.printStackTrace();
+					}
+         			
+         			txtSerial.setText(Tienda.getInstance().asignarSerial()); // Autoincrementa el serial
+         			
+         		}
+         		
+         		
+         		
+         		
+         		
+         	}
+         });
          btnAcceptar_2.setBounds(715, 466, 89, 23);
          pnlRegComp.add(btnAcceptar_2);
          
@@ -803,6 +1032,7 @@ public class Dashboard extends JFrame {
          btnAdmin.addActionListener(new ActionListener() {
          	public void actionPerformed(ActionEvent e) {
          		
+         		txtFldidUsuario.setText(Tienda.getInstance().asignarIdUsuario());
          		
          		tabsVendedores.setVisible(false);
          		tabs_Dashboard.setVisible(false);
@@ -822,6 +1052,7 @@ public class Dashboard extends JFrame {
          		tabs_Dashboard.setVisible(false);
          		tabsVendedores.setVisible(true);
          		tabsComponentes.setVisible(false);
+         		txtIdVendedor.setText(Tienda.getInstance().asignarIdUsuario());
          	}
          });
          btnVendedores.setBounds(10, 105, 163, 36);
@@ -835,6 +1066,8 @@ public class Dashboard extends JFrame {
          		tabs_Dashboard.setVisible(false);
          		tabsVendedores.setVisible(false);
          		tabsComponentes.setVisible(true);
+         		
+         		txtSerial.setText(Tienda.getInstance().asignarSerial());
          		
          		
          	}

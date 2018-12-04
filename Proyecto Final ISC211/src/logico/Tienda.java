@@ -37,8 +37,9 @@ public class Tienda implements Serializable {
 		facturas = new ArrayList<Factura>();
 		usuarios = new ArrayList<Usuario>();
 		kits = new ArrayList<Kit>();
+		char[] clave = new String("admin").toCharArray();
 		
-		Administrador defecto = new Administrador("admin","admin","admin",asignarIdUsuario()); // A cambiar
+		Administrador defecto = new Administrador("admin",clave,"admin",asignarIdUsuario()); // A cambiar
 		insertarAdministrador(defecto);
 	}
 	
@@ -83,7 +84,66 @@ public class Tienda implements Serializable {
 	{
 		componentes.add(componente);
 	}
-
+	
+	public int calcRam() {
+		
+		int cant = 0;
+		
+		for(int i = 0; i< componentes.size(); i++)
+		{
+			if(componentes.get(i) instanceof Ram)
+				cant+=componentes.get(i).getCantidad();
+		}
+		
+		return cant;
+		
+	}
+	
+	public int calcMotherBoard() {
+		
+		int cant = 0;
+		
+		for(int i = 0; i< componentes.size(); i++)
+		{
+			if(componentes.get(i) instanceof Motherboard)
+				cant+=componentes.get(i).getCantidad();
+		}
+		
+		return cant;
+		
+	}
+	
+	public int calcCPU() {
+		
+		int cant = 0;
+		
+		for(int i = 0; i< componentes.size(); i++)
+		{
+			if(componentes.get(i) instanceof Procesador)
+				cant+=componentes.get(i).getCantidad();
+		}
+		
+		return cant;
+		
+	}
+	
+	public int calcHDD() {
+		
+		int cant = 0;
+		
+		for(int i = 0; i< componentes.size(); i++)
+		{
+			if(componentes.get(i) instanceof DiscoDuro)
+				cant+=componentes.get(i).getCantidad();
+		}
+		
+		return cant;
+		
+	}
+	
+	
+	
+	
 	
 	public int indexCliente(String cedula) {
 		

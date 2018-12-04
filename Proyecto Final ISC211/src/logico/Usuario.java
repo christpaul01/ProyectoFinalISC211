@@ -10,11 +10,11 @@ public abstract class Usuario implements Serializable {
 	
 	
 	protected String nombre;
-	protected String clave;
+	protected char[] clave;
 	protected String id;
 	protected Boolean habilitado;
 	
-	public Usuario(String nombre, String clave,String id) {
+	public Usuario(String nombre, char[] clave,String id) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -28,10 +28,10 @@ public abstract class Usuario implements Serializable {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public String getClave() {
+	public char[] getClave() {
 		return clave;
 	}
-	public void setClave(String clave) {
+	public void setClave(char[] clave) {
 		this.clave = clave;
 	}
 

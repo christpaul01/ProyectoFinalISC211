@@ -13,14 +13,16 @@ public class Motherboard extends Componente implements Serializable {
 	
 	private String socket;
 	private String ram;
-	private ArrayList<DiscoDuro> discoDuro;	
+	private ArrayList<DiscoDuro> discoDuro;
+	private String tipoHDD; 
 	
 
 	public Motherboard(String marca, Double precioCompra, int cantidad, String numeroSerie, String modelo,
-			Double precioVenta,String proveedor, String socket, String ram) {
+			Double precioVenta,String proveedor, String socket, String ram, String tipoHDD) {
 		super(marca, precioCompra, cantidad, numeroSerie, modelo, precioVenta,proveedor);
 		this.socket = socket;
 		this.ram = ram;
+		this.tipoHDD = tipoHDD;
 		discoDuro = new ArrayList<>();
 	}
 
@@ -52,5 +54,10 @@ public class Motherboard extends Componente implements Serializable {
 
 	public void setDiscoDuro(ArrayList<DiscoDuro> discoDuro) {
 		this.discoDuro = discoDuro;
+	}
+
+
+	public String getTipoHDD() {
+		return tipoHDD;
 	}	
 }
