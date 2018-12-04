@@ -148,6 +148,8 @@ public class Factura implements Serializable{
 					escribiendo.write("\t"+factura.getCompraK().get(i).getComponentes().get(i).getPrecioCompra());
 					escribiendo.newLine();
 				}
+				escribiendo.close();
+				escribir.close();
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

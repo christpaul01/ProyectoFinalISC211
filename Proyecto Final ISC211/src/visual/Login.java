@@ -1,89 +1,99 @@
 package visual;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
+import java.awt.EventQueue;
 
-import javax.swing.JButton;
-import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+
+import logico.Tienda;
+
+import java.awt.FlowLayout;
 import javax.swing.JTextField;
-import javax.swing.JPasswordField;
 import javax.swing.JLabel;
-import javax.swing.ImageIcon;
 import java.awt.Font;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
-public class Login extends JDialog {
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JPasswordField;
 
-	private final JPanel contentPanel = new JPanel();
+public class Login extends JFrame {
+
+	private JPanel contentPane;
 	private JTextField textField;
 	private JPasswordField passwordField;
-
+	private Tienda tienda;
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		try {
-			Login dialog = new Login();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				/*try {
+					Tienda.getInstance().cargarDatos();
+				}
+				catch(Exception e){
+					Tienda.getInstance().guardarDatos();
+				}*/
+				try {
+					Login frame = new Login();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 
 	/**
-	 * Create the dialog.
+	 * Create the frame.
 	 */
 	public Login() {
-		setResizable(false);
-		setTitle("Inicio de Sesión");
-		setBounds(100, 100, 410, 250);
-		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		getContentPane().add(contentPanel, BorderLayout.CENTER);
-		contentPanel.setLayout(null);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 427, 228);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
 		
 		textField = new JTextField();
-		textField.setBounds(160, 66, 200, 19);
-		contentPanel.add(textField);
+		textField.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		textField.setBounds(224, 54, 107, 20);
+		contentPane.add(textField);
 		textField.setColumns(10);
 		
+		JLabel lblUsuario = new JLabel("Usuario:");
+		lblUsuario.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lblUsuario.setBounds(154, 55, 60, 19);
+		contentPane.add(lblUsuario);
+		
+		JLabel lblContrasea = new JLabel("Contrase\u00F1a:");
+		lblContrasea.setBounds(154, 106, 69, 14);
+		contentPane.add(lblContrasea);
+		
+		JButton btnAceptar = new JButton("Aceptar");
+		btnAceptar.setBounds(213, 156, 89, 23);
+		contentPane.add(btnAceptar);
+		
+		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.setBounds(312, 156, 89, 23);
+		contentPane.add(btnCancelar);
+		
 		passwordField = new JPasswordField();
-		passwordField.setBounds(160, 130, 200, 19);
-		contentPanel.add(passwordField);
+		passwordField.setBounds(224, 103, 107, 20);
+		contentPane.add(passwordField);
 		
-		JLabel lblUsuarioid = new JLabel("Usuario/ID");
-		lblUsuarioid.setBounds(160, 39, 73, 15);
-		contentPanel.add(lblUsuarioid);
-		
-		JLabel lblClave = new JLabel("Clave");
-		lblClave.setBounds(160, 103, 70, 15);
-		contentPanel.add(lblClave);
-		
-		JLabel lblLogIn = new JLabel("Inicie sesión");
-		lblLogIn.setFont(new Font("Dialog", Font.BOLD, 16));
-		lblLogIn.setBounds(12, 12, 136, 15);
-		contentPanel.add(lblLogIn);
-		
-		JLabel lblNewLabel = new JLabel("New label");
-		lblNewLabel.setIcon(new ImageIcon(getClass().getResource("/login.png")));
-		lblNewLabel.setBounds(12, 39, 136, 136);
-		contentPanel.add(lblNewLabel);
-		{
-			JPanel buttonPane = new JPanel();
-			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-			getContentPane().add(buttonPane, BorderLayout.SOUTH);
-			{
-				JButton okButton = new JButton("Aceptar");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
-			}
-			{
-				JButton cancelButton = new JButton("Cancelar");
-				cancelButton.setActionCommand("Cancel");
-				buttonPane.add(cancelButton);
-			}
-		}
+		JLabel label = new JLabel("");
+		label.setIcon(new ImageIcon(Login.class.getResource("/img/iconfinder_user_male2_172626 (1).png")));
+		label.setBounds(10, 11, 142, 141);
+		contentPane.add(label);
 	}
 }
