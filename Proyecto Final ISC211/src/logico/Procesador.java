@@ -25,6 +25,20 @@ public class Procesador extends Componente implements Serializable {
 		return socket;
 	}
 	
+	public String toStringInventario() {
+		Double aux = velocidad;
+		String aux2;
+		if (aux<1) {
+			aux=aux*1000;
+			aux2 = aux.toString()+"MHz";
+		} else {
+			aux2 = aux.toString()+"GHz";
+		}
+		String toString = numeroSerie + " - " + marca + " " + modelo + " " + aux2 + " " + socket + "  -  " + "Cantidad: " + cantidad + " - " + 
+				"Proveedor: " + proveedor + " - " + "Precio de venta: " + "RD$ " + precioVenta;
+		return toString;
+	}
+	
 	public String toString()
 	{
 		String toString = marca + " " + modelo + " - " + "RD$ " +  precioVenta ;

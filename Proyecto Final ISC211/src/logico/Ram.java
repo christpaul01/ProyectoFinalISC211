@@ -25,6 +25,21 @@ public class Ram extends Componente implements Serializable {
 		return memoria;
 	}
 	
+	public String toStringInventario() {
+		Double aux = memoria;
+		String aux2;
+		if (aux<1) {
+			aux=aux*1024;
+			aux2 = aux.toString() + "MB";
+		}else {
+			aux2 = aux.toString() + "GB";
+		}
+		
+		String toString = numeroSerie + " - " + marca + " " + modelo + " " + tipo + " " + aux2 + "  -  " + "Cantidad: " + cantidad + " - " + 
+		"Proveedor: " + proveedor + " - " + "Precio de venta: " + "RD$ " + precioVenta;
+		return toString;
+	}
+	
 	public String toString()
 	{
 		String toString = marca + " " + modelo + " - " + "RD$ " +  precioVenta ;
