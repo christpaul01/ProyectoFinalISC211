@@ -83,7 +83,11 @@ public class Tienda implements Serializable {
 		
 	}
 	
-
+	public void insertarVendedor(Usuario vendedor)
+	{
+		usuarios.add(vendedor);
+	}
+	
 	public void insertarCliente(Cliente cliente) {
 		clientes.add(cliente);
 	}
