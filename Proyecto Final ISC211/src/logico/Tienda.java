@@ -83,7 +83,11 @@ public class Tienda implements Serializable {
 		
 	}
 	
-
+	public void insertarVendedor(Usuario vendedor)
+	{
+		usuarios.add(vendedor);
+	}
+	
 	public void insertarCliente(Cliente cliente) {
 		clientes.add(cliente);
 	}
@@ -269,7 +273,7 @@ public class Tienda implements Serializable {
 		new File(url).mkdir();
 		
 		
-		FileOutputStream foTienda = new FileOutputStream (url + "\\MisDatos.dat");
+		FileOutputStream foTienda = new FileOutputStream (url + "//MisDatos.dat");
 		ObjectOutputStream oosTienda	= new ObjectOutputStream (foTienda);
 		
 		oosTienda.writeObject(tienda);
@@ -282,7 +286,7 @@ public class Tienda implements Serializable {
 		
 		String url = urlEjecutable();
 		
-		FileInputStream fiTienda = new FileInputStream (url + "\\MisDatos.dat");	
+		FileInputStream fiTienda = new FileInputStream (url + "//MisDatos.dat");	
 		ObjectInputStream oisTienda = new ObjectInputStream(fiTienda);	
 			
 		tienda = (Tienda)oisTienda.readObject();
@@ -293,7 +297,7 @@ public class Tienda implements Serializable {
 	public String urlEjecutable() {
 		
 		//Crea el String del link hacia el folder "Tienda" en 'Mis Documentos'
-		String url = new JFileChooser().getFileSystemView().getDefaultDirectory().toString() + "\\Tienda" ;
+		String url = new JFileChooser().getFileSystemView().getDefaultDirectory().toString() + "//Tienda" ;
 		
 		return url;
 		
