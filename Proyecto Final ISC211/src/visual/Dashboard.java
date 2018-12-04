@@ -795,7 +795,7 @@ public class Dashboard extends JFrame {
          pnlHDD.add(lblCapacidad);
          
          JSpinner spnrHDDCapacidad = new JSpinner();
-         spnrHDDCapacidad.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
+         spnrHDDCapacidad.setModel(new SpinnerNumberModel(new Double(0), new Double(0), null, new Double(1)));
          spnrHDDCapacidad.setBounds(112, 47, 210, 23);
          pnlHDD.add(spnrHDDCapacidad);
          
@@ -1028,7 +1028,81 @@ public class Dashboard extends JFrame {
          		}
          		
          		
+         		if(rdbtnProcesador.isSelected())	//Procesador
+         		{
+         			
+         			String socket = txtCPUSocket.getText();
+         			Double velocidad = (Double) spnrCPUSpeed.getValue();
+         			
+
+         			
+         			Procesador CPU = new Procesador(marca, precioCompra, cantProducto, serial, modelo, precioVenta, proveedor,socket,velocidad);
+         			
+         			Tienda.getInstance().insertarProducto(CPU);
+         			if(serial != Tienda.getInstance().asignarSerial())
+         			{
+         				txtSerial.setText("");
+         				txtMarca.setText(null);
+         				txtModelo.setText(null);
+         				spnrCompra.setValue(0);
+         				spnrVenta.setValue(0);
+         				
+         				txtCPUSocket.setText(null);;
+         				spnrCPUSpeed.setValue(0);
+         				
+         			}
+         			
+         			try {
+						Tienda.getInstance().guardarDatos();
+						JOptionPane.showMessageDialog(null, "Componente guardado en 'Mis Documentos'!","¡Guardado!", JOptionPane.PLAIN_MESSAGE);
+					} catch (ClassNotFoundException | IOException e) {
+						// TODO Auto-generated catch block
+						JOptionPane.showMessageDialog(null, "No se ha podido guardar en 'Mis Documentos'!","¡Error!", JOptionPane.PLAIN_MESSAGE);
+						e.printStackTrace();
+					}
+         			
+         			txtSerial.setText(Tienda.getInstance().asignarSerial()); // Autoincrementa el serial
+         			
+         		}
          		
+         		
+         		if(rdbtnDiscoDuro.isSelected())	// Hard Drive
+         		{
+         			Double capacidad = (Double) spnrHDDCapacidad.getValue();
+         			String conexion = cmbHDDtipo.getSelectedItem().toString();
+         			
+         			
+         			
+
+         			
+         			DiscoDuro miHDD = new DiscoDuro(marca, precioCompra, cantProducto, serial, modelo, precioVenta, proveedor,capacidad,conexion);
+         			
+         			Tienda.getInstance().insertarProducto(miHDD);
+         			if(serial != Tienda.getInstance().asignarSerial())
+         			{
+         				txtSerial.setText("");
+         				txtMarca.setText(null);
+         				txtModelo.setText(null);
+         				spnrCompra.setValue(0);
+         				spnrVenta.setValue(0);
+         				
+         				cmbHDDtipo.setSelectedIndex(-1);
+         				spnrHDDCapacidad.setValue(0);
+         				
+         			}
+         			
+         			try {
+						Tienda.getInstance().guardarDatos();
+						JOptionPane.showMessageDialog(null, "Componente guardado en 'Mis Documentos'!","¡Guardado!", JOptionPane.PLAIN_MESSAGE);
+					} catch (ClassNotFoundException | IOException e) {
+						// TODO Auto-generated catch block
+						JOptionPane.showMessageDialog(null, "No se ha podido guardar en 'Mis Documentos'!","¡Error!", JOptionPane.PLAIN_MESSAGE);
+						e.printStackTrace();
+					}
+         			
+         			txtSerial.setText(Tienda.getInstance().asignarSerial()); // Autoincrementa el serial
+         			
+         		}
          		
          		
          	}
