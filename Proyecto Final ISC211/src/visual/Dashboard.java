@@ -15,6 +15,7 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.title.TextTitle;
 import org.jfree.data.category.DefaultCategoryDataset;
 import logico.Administrador;
+import logico.Componente;
 import logico.DiscoDuro;
 import logico.Motherboard;
 import logico.Procesador;
@@ -44,6 +45,7 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.border.EtchedBorder;
@@ -735,7 +737,10 @@ public class Dashboard extends JFrame {
          tabsComponentes.addTab("Inventario", null, pnlInventario, null);
          pnlInventario.setLayout(null);
          
-         JList listInventario = new JList();
+         DefaultListModel<Componente> modelInventario = new DefaultListModel<>();
+         JList<Componente> listInventario = new JList<>( modelInventario );
+
+         
          listInventario.setBorder(new LineBorder(Color.LIGHT_GRAY));
          listInventario.setBounds(10, 11, 893, 478);
          pnlInventario.add(listInventario);
@@ -1103,7 +1108,7 @@ public class Dashboard extends JFrame {
          			if(Tienda.getInstance().getComponentes().get(i) instanceof DiscoDuro)
          				cmbHDDkit.addItem(Tienda.getInstance().getComponentes().get(i));
          			
-         			
+         			modelInventario.addElement(Tienda.getInstance().getComponentes().get(i));
          			
          		}
          		

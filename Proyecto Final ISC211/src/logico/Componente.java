@@ -30,6 +30,15 @@ public class Componente implements Serializable {
 		this.precioVenta=precioVenta;
 		this.proveedor=proveedor;
 	}
+	
+	public String toString()
+	{
+		
+		String toString = marca + " - RD$ "+ precioVenta + " ("+cantidad+")";
+		
+		
+		return toString;
+	}
 
 
 	public String getProveedor() {
