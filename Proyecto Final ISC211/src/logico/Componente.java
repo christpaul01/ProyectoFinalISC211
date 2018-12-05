@@ -39,6 +39,11 @@ public class Componente implements Serializable {
 		
 		return toString;
 	}
+	
+	public String toStringInventario() {
+		String toString = null;
+		return toString;
+	}
 
 
 	public String getProveedor() {

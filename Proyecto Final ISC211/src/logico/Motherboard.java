@@ -26,6 +26,12 @@ public class Motherboard extends Componente implements Serializable {
 		discoDuro = new ArrayList<>();
 	}
 
+	public String toStringInventario() {
+		String toString = numeroSerie + " - " + marca + " " + modelo + "  -  " + "Cantidad: " + cantidad + " - " + 
+				"Proveedor: " + proveedor + " - " + "Precio de venta: " + "RD$ " + precioVenta;
+		return toString;
+	}
+	
 	public String toString()
 	{
 		String toString = marca + " " + modelo + " - " + "RD$ " +  precioVenta ;
