@@ -55,6 +55,8 @@ import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.TitledBorder;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Dashboard extends JFrame {
 
@@ -567,6 +569,18 @@ public class Dashboard extends JFrame {
          pnlCompComun.add(lblProveedor);
          
          JComboBox cmbProveedor = new JComboBox();
+         cmbProveedor.addMouseListener(new MouseAdapter() {
+         	@Override
+         	public void mouseClicked(MouseEvent e) {
+         		
+         		cmbProveedor.removeAllItems();
+         		
+         		for(int i = 0; i< Tienda.getInstance().getProveedores().size(); i++)
+         		{
+         			cmbProveedor.addItem(Tienda.getInstance().getProveedores().get(i));
+         		}
+         	}
+         });
          cmbProveedor.setMaximumRowCount(100);
          cmbProveedor.setModel(new DefaultComboBoxModel(new String[] {"<Seleccionar>", "Test1", "Test2"}));
          cmbProveedor.setBounds(594, 25, 195, 21);
@@ -1064,13 +1078,13 @@ public class Dashboard extends JFrame {
          		Double precioVenta = (Double) spnrVenta.getValue();
          		
          		int cantProducto = (int) spnrCantComp.getValue();
-         		String proveedor = cmbProveedor.getSelectedItem().toString(); //Cambiar...
+         
          		
          		if(txtSerial.getText().length() > 0 && txtMarca.getText().length() > 0 && txtModelo.getText().length() > 0
-         				&& (Double) spnrCompra.getValue() > 0.00 && (Double) spnrVenta.getValue() > 0.00)
+         				&& (Double) spnrCompra.getValue() > 0.00 && (Double) spnrVenta.getValue() > 0.00 && cmbProveedor.getSelectedIndex() > -1 )
          		{
          			
-         		
+         			String proveedor = cmbProveedor.getSelectedItem().toString();
          		
          		if(rdbtnMotherboard.isSelected()) //Motherboard
          		{
@@ -1282,6 +1296,10 @@ public class Dashboard extends JFrame {
          		tabsVendedores.setVisible(false);
          		tabsComponentes.setVisible(true);
          		
+         		rdbtnMotherboard.setSelected(true);
+         		panelMobo.setVisible(true);
+         		pnlRam.setVisible(false);
+         		
          		txtSerial.setText(Tienda.getInstance().asignarSerial());
          		txtIdSerialKit.setText(Tienda.getInstance().asignarIdKit());
          		modelInventario.clear();
@@ -1289,6 +1307,7 @@ public class Dashboard extends JFrame {
          		cmbRamKit.removeAllItems();
          		cmbCPUKit.removeAllItems();
          		cmbHDDkit.removeAllItems();
+         		cmbProveedor.removeAllItems();
          		
          		for(int i = 0; i < Tienda.getInstance().getComponentes().size(); i++)
          		{
@@ -1310,7 +1329,6 @@ public class Dashboard extends JFrame {
          		
          		
          		
-         		
          	}
          });
          btnComponente.setBounds(10, 152, 163, 36);
@@ -1319,8 +1337,20 @@ public class Dashboard extends JFrame {
          JButton btnProveedores = new JButton("PROVEEDORES");
          btnProveedores.addActionListener(new ActionListener() {
          	public void actionPerformed(ActionEvent e) {
+         		InsertarProveedores insercion;
+         		try {
+					insercion = new InsertarProveedores();
+					insercion.setVisible(true);
+					
+				} catch (ClassNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
          		
-         		//Esperando Jdialog de proveedores
+         		
          		
          	}
          });
@@ -1331,4 +1361,8 @@ public class Dashboard extends JFrame {
              
         
 	}
+	
+	
+
+	
 }

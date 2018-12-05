@@ -38,6 +38,8 @@ public class Tienda implements Serializable {
 		facturas = new ArrayList<Factura>();
 		usuarios = new ArrayList<Usuario>();
 		kits = new ArrayList<Kit>();
+		proveedores = new ArrayList<String>();
+		
 		char[] clave = {'a','d','m','i','n'};
 		
 		Administrador defecto = new Administrador("admin",clave,"admin",asignarIdUsuario()); // A cambiar
@@ -316,7 +318,7 @@ public class Tienda implements Serializable {
 
 	public void insertarProveedor(String proveedor)
 	{
-		this.proveedores.add(proveedor);
+		proveedores.add(proveedor);
 	}
 
 }
