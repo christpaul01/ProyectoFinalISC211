@@ -728,6 +728,12 @@ public class Dashboard extends JFrame {
          			
          		}
          		
+         		if(Tienda.getInstance().calcRam() == 0 || Tienda.getInstance().calcCPU() == 0 || 
+         			Tienda.getInstance().calcHDD() == 0 || Tienda.getInstance().calcMotherBoard() == 0)
+         		{
+         			JOptionPane.showMessageDialog(null, "Agregar todos los componentes!","¡Error!", JOptionPane.PLAIN_MESSAGE);
+         		}
+         		
          		if(txtNombreKit.getText().length() > 4 && (int) spnrCantKit.getValue() > 0 )
          		{
          			
@@ -1309,6 +1315,17 @@ public class Dashboard extends JFrame {
          });
          btnComponente.setBounds(10, 152, 163, 36);
          pnlMenu.add(btnComponente);
+         
+         JButton btnProveedores = new JButton("PROVEEDORES");
+         btnProveedores.addActionListener(new ActionListener() {
+         	public void actionPerformed(ActionEvent e) {
+         		
+         		//Esperando Jdialog de proveedores
+         		
+         	}
+         });
+         btnProveedores.setBounds(10, 199, 163, 36);
+         pnlMenu.add(btnProveedores);
          
                           
              
