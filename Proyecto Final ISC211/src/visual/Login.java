@@ -24,6 +24,8 @@ import java.io.ObjectOutputStream;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPasswordField;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Login extends JFrame {
 
@@ -31,18 +33,27 @@ public class Login extends JFrame {
 	private JTextField txtname;
 	private JPasswordField txtPass;
 	private Tienda tienda;
+	private JButton btnAceptar;
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				/*try {
+				try {
 					Tienda.getInstance().cargarDatos();
 				}
 				catch(Exception e){
-					Tienda.getInstance().guardarDatos();
-				}*/
+					try {
+						Tienda.getInstance().guardarDatos();
+					} catch (ClassNotFoundException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
 				try {
 					Login frame = new Login();
 					frame.setVisible(true);
@@ -79,7 +90,11 @@ public class Login extends JFrame {
 		lblContrasea.setBounds(154, 106, 69, 14);
 		contentPane.add(lblContrasea);
 		
-		JButton btnAceptar = new JButton("Aceptar");
+		btnAceptar = new JButton("Iniciar");
+		btnAceptar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnAceptar.setBounds(213, 156, 89, 23);
 		contentPane.add(btnAceptar);
 		
@@ -95,5 +110,15 @@ public class Login extends JFrame {
 		label.setIcon(new ImageIcon(Login.class.getResource("/img/iconfinder_user_male2_172626 (1).png")));
 		label.setBounds(10, 11, 142, 141);
 		contentPane.add(label);
+	}
+	public boolean existeCuenta() {
+		boolean existe=false;
+		for (int i = 0; i < Tienda.getInstance().getUsuarios().size(); i++) {
+			if(Tienda.getInstance().getUsuarios().get(i).getNombre().equalsIgnoreCase(txtname.toString())&&
+				Tienda.getInstance().getUsuarios().get(i).getClave().equalsIgnoreCase(txtPass.toString())) {
+				existe=true;
+			}
+		}
+		return existe;
 	}
 }
