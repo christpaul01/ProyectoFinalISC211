@@ -13,6 +13,8 @@ import logico.Tienda;
 import java.awt.FlowLayout;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -93,6 +95,23 @@ public class Login extends JFrame {
 		btnAceptar = new JButton("Iniciar");
 		btnAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if(existeCuenta()==true) {
+					Dashboard dash;
+					try {
+						dash = new Dashboard();
+						dash.setVisible(true);
+					} catch (ClassNotFoundException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+				else if(existeCuenta()==false) {
+					JOptionPane.showMessageDialog(null, "No existe Cuenta", "Error", JOptionPane.ERROR_MESSAGE);
+					clean();
+				}
 			}
 		});
 		btnAceptar.setBounds(213, 156, 89, 23);
@@ -120,5 +139,9 @@ public class Login extends JFrame {
 			}
 		}
 		return existe;
+	}
+	public void clean() {
+		txtname.setText("");
+		txtPass.setText("");
 	}
 }
