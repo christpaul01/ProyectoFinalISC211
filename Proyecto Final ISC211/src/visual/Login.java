@@ -7,8 +7,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-
+import logico.Administrador;
 import logico.Tienda;
+import logico.Vendedor;
 
 import java.awt.FlowLayout;
 import javax.swing.JTextField;
@@ -101,11 +102,11 @@ public class Login extends JFrame {
 		
 		btnAceptar = new JButton("Iniciar");
 		btnAceptar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent e)  {
 				
 				
 				
-				if(existeCuenta() != -1 && concuerdaPassword(existeCuenta()) ) {
+				if(existeCuenta() != -1 && concuerdaPassword(existeCuenta()) &&  Tienda.getInstance().getUsuarios().get(existeCuenta()) instanceof Administrador ) {
 					Dashboard dash;
 					try {
 						dash = new Dashboard();
@@ -120,6 +121,11 @@ public class Login extends JFrame {
 					}
 				}
 				
+				if(existeCuenta() != -1 && concuerdaPassword(existeCuenta()) &&  Tienda.getInstance().getUsuarios().get(existeCuenta()) instanceof Vendedor ) {
+					Cliente cliente;
+					cliente = new Cliente();
+					cliente.setVisible(true);
+				}
 				
 				if(existeCuenta()==-1) {
 					JOptionPane.showMessageDialog(null, "No existe Cuenta", "Error", JOptionPane.ERROR_MESSAGE);
