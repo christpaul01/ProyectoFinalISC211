@@ -235,8 +235,9 @@ public class Tienda implements Serializable {
 
 
 
-	public void setKits(ArrayList<Kit> kits) {
-		this.kits = kits;
+	public void insertarKits(Kit kits) {
+		
+		this.kits.add(kits);
 	}
 	
 		

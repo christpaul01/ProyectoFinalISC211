@@ -17,6 +17,7 @@ import org.jfree.data.category.DefaultCategoryDataset;
 import logico.Administrador;
 import logico.Componente;
 import logico.DiscoDuro;
+import logico.Kit;
 import logico.Motherboard;
 import logico.Procesador;
 import logico.Ram;
@@ -31,6 +32,7 @@ import javax.swing.border.LineBorder;
 import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.awt.event.ActionEvent;
@@ -615,7 +617,9 @@ public class Dashboard extends JFrame {
          tabsComponentes.addTab("Kits", null, pnlKits, null);
          pnlKits.setLayout(null);
          
-         JList listKits = new JList();
+         DefaultListModel<Componente> modelKits = new DefaultListModel<>();
+         JList<Componente> listKits = new JList<>( modelKits );
+         
          listKits.setBounds(470, 40, 433, 319);
          pnlKits.add(listKits);
          
@@ -678,9 +682,96 @@ public class Dashboard extends JFrame {
          lblHardDrive.setBounds(76, 200, 89, 14);
          pnlRegKit.add(lblHardDrive);
          
+         txtNombreKit = new JTextField();
+         txtNombreKit.setColumns(10);
+         txtNombreKit.setBounds(186, 60, 179, 23);
+         pnlRegKit.add(txtNombreKit);
+         
+         JSpinner spnrCantKit = new JSpinner();
+         spnrCantKit.setModel(new SpinnerNumberModel(0, 0, 100, 10));
+         spnrCantKit.setBounds(276, 233, 89, 17);
+         pnlRegKit.add(spnrCantKit);
+         
+
+         JSpinner spnrTotal = new JSpinner();
+         spnrTotal.setEnabled(false);
+         spnrTotal.setModel(new SpinnerNumberModel(new Double(0), null, null, new Double(1)));
+         spnrTotal.setBounds(544, 380, 89, 23);
+         pnlKits.add(spnrTotal);
+         
+         JSpinner spnrFinal = new JSpinner();
+         spnrFinal.setModel(new SpinnerNumberModel(new Double(0), null, null, new Double(1)));
+         spnrFinal.setEnabled(false);
+         spnrFinal.setBounds(544, 408, 89, 22);
+         pnlKits.add(spnrFinal);
+         
          JButton btnVisualizar = new JButton("Visualizar");
          btnVisualizar.addActionListener(new ActionListener() {
          	public void actionPerformed(ActionEvent e) {
+         		
+         		
+         		if(txtNombreKit.getText().length() < 4 || (int) spnrCantKit.getValue() == 0  )
+         		{
+         			if(txtNombreKit.getText().length() < 4 && !((int) spnrCantKit.getValue() == 0))
+         				JOptionPane.showMessageDialog(null, "Insertar un nombre correcto para el Kit!","¡Error!", JOptionPane.PLAIN_MESSAGE);
+         			
+         			if((int) spnrCantKit.getValue() == 0 && !(txtNombreKit.getText().length() == 0))
+         			{
+         				JOptionPane.showMessageDialog(null, "Insertar una cantidad correcta para el Kit!","¡Error!", JOptionPane.PLAIN_MESSAGE);
+         			}
+         			
+         			if(txtNombreKit.getText().length() < 4 && (int) spnrCantKit.getValue() == 0 )
+         			{
+         				JOptionPane.showMessageDialog(null, "Verificar Datos!","¡Error!", JOptionPane.PLAIN_MESSAGE);
+         			}
+         			
+         			
+         		}
+         		
+         		if(txtNombreKit.getText().length() > 4 && (int) spnrCantKit.getValue() > 0 )
+         		{
+         			
+         		Double precioFinal = 0.00;
+         			
+         		modelKits.clear();
+         		
+         		if(Tienda.getInstance().calcRam() > 0) // Ram
+         		{
+         			Ram ramSeleccionada = (Ram) cmbRamKit.getSelectedItem();
+         			modelKits.addElement(ramSeleccionada);
+         			precioFinal += ramSeleccionada.getPrecioVenta();
+         		}
+         		
+         		if(Tienda.getInstance().calcCPU() > 0) // CPU
+         		{
+         			Procesador cpuSeleccionada = (Procesador) cmbCPUKit.getSelectedItem();
+         			modelKits.addElement(cpuSeleccionada);
+         			precioFinal += cpuSeleccionada.getPrecioVenta();
+         		}
+         		
+         		if(Tienda.getInstance().calcHDD() > 0) //Disco Duro
+         		{
+         			DiscoDuro hDDSeleccionada = (DiscoDuro) cmbHDDkit.getSelectedItem();
+         			modelKits.addElement(hDDSeleccionada);
+         			precioFinal += hDDSeleccionada.getPrecioVenta();
+         		}
+         		
+         		if(Tienda.getInstance().calcMotherBoard() > 0) // Motherboard
+         		{
+         			Motherboard moboSeleccionado = (Motherboard) cmbMoboKit.getSelectedItem();
+         			modelKits.addElement(moboSeleccionado);
+         			precioFinal += moboSeleccionado.getPrecioVenta();
+         			
+         		}
+         		
+         		spnrTotal.setValue(precioFinal);
+         		spnrFinal.setValue((precioFinal*0.90));
+         		
+
+
+         		
+         		}
+         		
          		
          		
          	}
@@ -688,10 +779,7 @@ public class Dashboard extends JFrame {
          btnVisualizar.setBounds(339, 285, 89, 23);
          pnlRegKit.add(btnVisualizar);
          
-         txtNombreKit = new JTextField();
-         txtNombreKit.setColumns(10);
-         txtNombreKit.setBounds(186, 60, 179, 23);
-         pnlRegKit.add(txtNombreKit);
+         
          
          JLabel lblNombre_1 = new JLabel("Nombre:");
          lblNombre_1.setBounds(76, 64, 46, 14);
@@ -701,10 +789,7 @@ public class Dashboard extends JFrame {
          lblCantidad_1.setBounds(76, 236, 89, 14);
          pnlRegKit.add(lblCantidad_1);
          
-         JSpinner spinner = new JSpinner();
-         spinner.setModel(new SpinnerNumberModel(0, 0, 100, 10));
-         spinner.setBounds(276, 233, 89, 17);
-         pnlRegKit.add(spinner);
+         
          
          JSeparator separator_4 = new JSeparator();
          separator_4.setOrientation(SwingConstants.VERTICAL);
@@ -715,21 +800,14 @@ public class Dashboard extends JFrame {
          
          
          JLabel lblPrecioFinal = new JLabel("Precio Final:");
-         lblPrecioFinal.setBounds(470, 408, 89, 14);
+         lblPrecioFinal.setBounds(470, 412, 89, 14);
          pnlKits.add(lblPrecioFinal);
          
          JLabel lblPrecioTotal = new JLabel("Precio Total:");
-         lblPrecioTotal.setBounds(470, 383, 89, 14);
+         lblPrecioTotal.setBounds(470, 384, 89, 14);
          pnlKits.add(lblPrecioTotal);
          
-         JLabel lblRd = new JLabel("RD$ 0.00");
-         lblRd.setBounds(543, 383, 89, 14);
-         pnlKits.add(lblRd);
          
-         JLabel label_1 = new JLabel("RD$ 0.00");
-         label_1.setToolTipText("Con 10% de descuento");
-         label_1.setBounds(543, 408, 89, 14);
-         pnlKits.add(label_1);
          
          
          
@@ -751,6 +829,11 @@ public class Dashboard extends JFrame {
          JButton btnCancelarKit = new JButton("Cancelar");
          btnCancelarKit.addActionListener(new ActionListener() {
          	public void actionPerformed(ActionEvent e) {
+         		
+         		modelKits.clear();
+         		spnrTotal.setValue(0.00);
+         		spnrFinal.setValue(0.00);
+         		txtNombreKit.setText("");
          	}
          });
          btnCancelarKit.setBounds(814, 466, 89, 23);
@@ -760,7 +843,28 @@ public class Dashboard extends JFrame {
          btnAcceptarKit.addActionListener(new ActionListener() {
          	public void actionPerformed(ActionEvent e) {
          		
+         		int kitIni = Tienda.getInstance().getKits().size();
+         		
+         		String nombreKit = txtNombreKit.getText();
+         		
+         		ArrayList<Componente> misComponentes= new ArrayList<Componente>();
+         
+         		for(int i = 0; i < modelKits.size(); i++ )
+         		{
+         			misComponentes.add(modelKits.get(i));
+         		}
+         
+         		Kit miKit = new Kit(Tienda.getInstance().asignarIdKit(), nombreKit, misComponentes);
+         		
+         		Tienda.getInstance().insertarKits(miKit);
+         		
          		txtIdSerialKit.setText(Tienda.getInstance().asignarIdKit());
+         		
+         		int kitFinal = Tienda.getInstance().getKits().size();
+         		
+         		if(kitIni != kitFinal)
+         			btnCancelarKit.doClick();
+         		
          		
          		
          	}
@@ -956,6 +1060,12 @@ public class Dashboard extends JFrame {
          		int cantProducto = (int) spnrCantComp.getValue();
          		String proveedor = cmbProveedor.getSelectedItem().toString(); //Cambiar...
          		
+         		if(txtSerial.getText().length() > 0 && txtMarca.getText().length() > 0 && txtModelo.getText().length() > 0
+         				&& (Double) spnrCompra.getValue() > 0.00 && (Double) spnrVenta.getValue() > 0.00)
+         		{
+         			
+         		
+         		
          		if(rdbtnMotherboard.isSelected()) //Motherboard
          		{
          			
@@ -1104,6 +1214,7 @@ public class Dashboard extends JFrame {
          			
          		}
          		
+         	}
          		
          	}
          });
@@ -1168,6 +1279,10 @@ public class Dashboard extends JFrame {
          		txtSerial.setText(Tienda.getInstance().asignarSerial());
          		txtIdSerialKit.setText(Tienda.getInstance().asignarIdKit());
          		modelInventario.clear();
+         		cmbMoboKit.removeAllItems();
+         		cmbRamKit.removeAllItems();
+         		cmbCPUKit.removeAllItems();
+         		cmbHDDkit.removeAllItems();
          		
          		for(int i = 0; i < Tienda.getInstance().getComponentes().size(); i++)
          		{
