@@ -10,11 +10,19 @@ public class Main {
 		Procesador b = new Procesador("Intel", 10000.00, 50, Tienda.getInstance().asignarSerial(),
 				"i7 3770k", 15000.00, "PC Internacional", "LGA 1155", 2.5);
 		Tienda.getInstance().insertarProducto(b);
-		
-		
+		String prov = "aeiou";
+		for (int i = 0; i < Tienda.getInstance().getProveedores().size(); i++) {
+			if (!(prov.equals(Tienda.getInstance().getProveedores().get(i)))) {
+				Tienda.getInstance().insertarProveedor(prov);
+			}
+		}
 		///////////////////////////////////////////
 		System.out.println(a.toStringInventario());
 		System.out.println(b.toStringInventario());
+		for (int i = 0; i < Tienda.getInstance().getProveedores().size(); i++) {
+			System.out.println(Tienda.getInstance().getProveedores().get(i).toString());
+		}
+		
 	}
 
 }
