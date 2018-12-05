@@ -16,12 +16,14 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
+import java.awt.Frame;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.Arrays;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -34,14 +36,15 @@ public class Login extends JFrame {
 	private JPanel contentPane;
 	private JTextField txtname;
 	private JPasswordField txtPass;
-	private Tienda tienda;
 	private JButton btnAceptar;
+	private Boolean loggedin;
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
+				
 				try {
 					Tienda.getInstance().cargarDatos();
 				}
@@ -62,6 +65,9 @@ public class Login extends JFrame {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+				
+
+				
 			}
 		});
 	}
@@ -79,27 +85,32 @@ public class Login extends JFrame {
 		
 		txtname = new JTextField();
 		txtname.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		txtname.setBounds(224, 54, 107, 20);
+		txtname.setBounds(279, 55, 122, 20);
 		contentPane.add(txtname);
 		txtname.setColumns(10);
 		
 		JLabel lblUsuario = new JLabel("Usuario:");
 		lblUsuario.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblUsuario.setBounds(154, 55, 60, 19);
+		lblUsuario.setBounds(162, 59, 82, 19);
 		contentPane.add(lblUsuario);
 		
 		JLabel lblContrasea = new JLabel("Contrase\u00F1a:");
-		lblContrasea.setBounds(154, 106, 69, 14);
+		lblContrasea.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lblContrasea.setBounds(162, 104, 107, 20);
 		contentPane.add(lblContrasea);
 		
 		btnAceptar = new JButton("Iniciar");
 		btnAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(existeCuenta()==true) {
+				
+				
+				
+				if(existeCuenta() != -1 && concuerdaPassword(existeCuenta()) ) {
 					Dashboard dash;
 					try {
 						dash = new Dashboard();
 						dash.setVisible(true);
+						
 					} catch (ClassNotFoundException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -108,8 +119,15 @@ public class Login extends JFrame {
 						e1.printStackTrace();
 					}
 				}
-				else if(existeCuenta()==false) {
+				
+				
+				if(existeCuenta()==-1) {
 					JOptionPane.showMessageDialog(null, "No existe Cuenta", "Error", JOptionPane.ERROR_MESSAGE);
+					clean();
+				}
+				
+				if(existeCuenta()!=-1 && !(concuerdaPassword(existeCuenta()) )) {
+					JOptionPane.showMessageDialog(null, "Contrasena incorrecta", "Error", JOptionPane.ERROR_MESSAGE);
 					clean();
 				}
 			}
@@ -118,11 +136,16 @@ public class Login extends JFrame {
 		contentPane.add(btnAceptar);
 		
 		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				clean();
+			}
+		});
 		btnCancelar.setBounds(312, 156, 89, 23);
 		contentPane.add(btnCancelar);
 		
 		txtPass = new JPasswordField();
-		txtPass.setBounds(224, 103, 107, 20);
+		txtPass.setBounds(279, 104, 122, 20);
 		contentPane.add(txtPass);
 		
 		JLabel label = new JLabel("");
@@ -130,16 +153,44 @@ public class Login extends JFrame {
 		label.setBounds(10, 11, 142, 141);
 		contentPane.add(label);
 	}
-	public boolean existeCuenta() {
-		boolean existe=false;
+	
+	public int existeCuenta() {
+		
+		
+		int index=-1;
+		
 		for (int i = 0; i < Tienda.getInstance().getUsuarios().size(); i++) {
-			if(Tienda.getInstance().getUsuarios().get(i).getNombre().equalsIgnoreCase(txtname.toString())&&
-				Tienda.getInstance().getUsuarios().get(i).getClave().equalsIgnoreCase(txtPass.toString())) {
-				existe=true;
+			if( txtname.getText().equalsIgnoreCase(Tienda.getInstance().getUsuarios().get(i).getNombre()) )
+			{
+				index=i;
 			}
 		}
-		return existe;
+		return index;
 	}
+	
+	
+	public Boolean concuerdaPassword(int index)
+	{
+		Boolean login = false;
+		
+		if(Tienda.getInstance().getUsuarios().get(index).getClave() == (txtPass.getPassword()) || Arrays.equals(txtPass.getPassword(), Tienda.getInstance().getUsuarios().get(index).getClave()))
+		{
+			login = true;
+			this.setVisible(false);
+		}
+			
+		return login;
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	public void clean() {
 		txtname.setText("");
 		txtPass.setText("");

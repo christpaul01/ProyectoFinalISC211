@@ -26,6 +26,7 @@ public class Tienda implements Serializable {
 	private ArrayList<Factura> facturas;
 	private ArrayList<Kit> kits;
 	private ArrayList<Usuario> usuarios;
+	private ArrayList<String> proveedores;
 	private String nombre;
 	private static Tienda tienda;
 
@@ -37,7 +38,7 @@ public class Tienda implements Serializable {
 		facturas = new ArrayList<Factura>();
 		usuarios = new ArrayList<Usuario>();
 		kits = new ArrayList<Kit>();
-		char[] clave = new String("admin").toCharArray();
+		char[] clave = {'a','d','m','i','n'};
 		
 		Administrador defecto = new Administrador("admin",clave,"admin",asignarIdUsuario()); // A cambiar
 		insertarAdministrador(defecto);
@@ -309,5 +310,13 @@ public class Tienda implements Serializable {
 		return nombre;
 	}
 
+	public ArrayList<String> getProveedores() {
+		return proveedores;
+	}
+
+	public void insertarProveedor(String proveedor)
+	{
+		this.proveedores.add(proveedor);
+	}
 
 }
