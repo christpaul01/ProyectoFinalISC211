@@ -135,6 +135,7 @@ public class Login extends JFrame {
 					Ventas vendedor;
 					vendedor = new Ventas();
 					vendedor.setVisible(true);
+					
 				}
 				
 				if(existeCuenta()==-1) {
@@ -193,6 +194,8 @@ public class Login extends JFrame {
 		{
 			login = true;
 			this.setVisible(false);
+			asignarLoggedin((Vendedor)Tienda.getInstance().getUsuarios().get(index));
+			
 		}
 			
 		return login;
@@ -200,10 +203,10 @@ public class Login extends JFrame {
 	}
 	
 	
-	
-	
-	
-	
+	public void asignarLoggedin(Vendedor vendedor)
+	{
+		Tienda.getInstance().setVendedorLoggedin(vendedor);
+	}
 	
 	
 	

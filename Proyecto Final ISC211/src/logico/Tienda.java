@@ -31,6 +31,7 @@ public class Tienda implements Serializable {
 	private ArrayList<String> proveedores;
 	private static ArrayList<Meses> meses;
 	private static Meses mesActual;
+	private Vendedor vendedorLoggedin;
 
 	private String nombre;
 	private static Tienda tienda;
@@ -46,14 +47,16 @@ public class Tienda implements Serializable {
 		proveedores = new ArrayList<String>();
 		meses = new ArrayList<Meses>();
 		mesActual = new Meses();
+		
 
 		// Funciones Extra
 		mesActual.setMes(tiempoActual());
 
 		char[] clave = { 'a', 'd', 'm', 'i', 'n' };
-
 		Administrador defecto = new Administrador("admin", clave, "admin", asignarIdUsuario()); // A cambiar
 		insertarAdministrador(defecto);
+		setVendedorLoggedin(new Vendedor("vendedor",clave,asignarIdUsuario()));
+
 	}
 
 	public static Tienda getInstance() {
@@ -336,6 +339,14 @@ public class Tienda implements Serializable {
 		}
 
 		return cant;
+	}
+
+	public Vendedor getVendedorLoggedin() {
+		return vendedorLoggedin;
+	}
+
+	public void setVendedorLoggedin(Vendedor vendedorLoggedin) {
+		this.vendedorLoggedin = vendedorLoggedin;
 	}
 
 

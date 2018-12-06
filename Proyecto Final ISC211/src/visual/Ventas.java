@@ -329,7 +329,15 @@ public class Ventas extends JFrame {
 		btnAcceptar_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
+				if(lblClienteSelecionado.getText() == "Ninguno" || (Double) spnrPrecioTotal.getValue() > 0.00 )
+				{
+					JOptionPane.showMessageDialog(null, "Seleccionar un cliente y componentes para finalizar.", "¡Error!", JOptionPane.PLAIN_MESSAGE);
+				}
 				
+				if(lblClienteSelecionado.getText() != "Ninguno" && (Double) spnrPrecioTotal.getValue() > 0.00)
+				{
+					JOptionPane.showMessageDialog(null, "Compra Hecha!", "¡Exito!", JOptionPane.PLAIN_MESSAGE);
+				}
 			}
 		});
 		btnAcceptar_1.setBounds(751, 641, 89, 23);
@@ -484,6 +492,21 @@ public class Ventas extends JFrame {
 		            JOptionPane.showMessageDialog(null, "Buscar Otro Cliente");
 		        }
 		}
+	}
+	
+	
+	public void FinalizarCompra()
+	{
+		listModelComponente.clear();
+		listModelCliente.clear();
+		listModelKitsCliente.clear();
+		listModelKits.clear();
+		lblClienteSelecionado.setText("Ninguno");
+		
+		actualizarCantidad();
+		actualizarPrecio();
+		
+		
 	}
 	
 }
