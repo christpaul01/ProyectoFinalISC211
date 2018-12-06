@@ -15,6 +15,7 @@ import java.util.Date;
 
 import javax.swing.JFileChooser;
 
+
 public class Tienda implements Serializable {
 
 	/**
@@ -306,7 +307,15 @@ public class Tienda implements Serializable {
 	public void setMesActual(Meses mesActual) {
 		this.mesActual = mesActual;
 	}
-
+	public Cliente buscarCliente(String selecte) {
+		Cliente client=null;
+		for (int i = 0; i < Tienda.getInstance().getClientes().size(); i++) {
+			if(Tienda.getInstance().getClientes().get(i).getCedula().equalsIgnoreCase(selecte)) {
+				client=Tienda.getInstance().getClientes().get(i);
+			}
+		}
+		return client;
+	}
 	public static String tiempoActual() {
 		Date date = new Date();
 		LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
