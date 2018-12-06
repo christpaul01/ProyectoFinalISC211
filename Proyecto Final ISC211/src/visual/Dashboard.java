@@ -159,6 +159,8 @@ public class Dashboard extends JFrame {
 		panel_1.add(pnlChartVentas);
 
 		// Agregango datos (Remplazar por funccion)
+		
+		
 		lcd_Ventas.addValue(80, "ventas", "Julio");
 		lcd_Ventas.addValue(300, "ventas", "Agosto");
 		lcd_Ventas.addValue(600, "ventas", "Septiembre");

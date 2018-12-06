@@ -9,7 +9,10 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.swing.JFileChooser;
 
@@ -27,18 +30,28 @@ public class Tienda implements Serializable {
 	private ArrayList<Kit> kits;
 	private ArrayList<Usuario> usuarios;
 	private ArrayList<String> proveedores;
+	private static ArrayList<Meses> meses;
+	private static Meses mesActual;
+	
+
 	private String nombre;
 	private static Tienda tienda;
 
 	private Tienda() {
 		super();
-		
+				
 		componentes = new ArrayList<Componente>();
 		clientes = new ArrayList<Cliente>();
 		facturas = new ArrayList<Factura>();
 		usuarios = new ArrayList<Usuario>();
 		kits = new ArrayList<Kit>();
 		proveedores = new ArrayList<String>();
+		meses = new ArrayList<Meses>();
+		mesActual = new Meses();
+		
+		
+		//Funciones Extra
+		mesActual.setMes(tiempoActual());
 		
 		char[] clave = {'a','d','m','i','n'};
 		
@@ -47,6 +60,19 @@ public class Tienda implements Serializable {
 	}
 	
 	public static Tienda getInstance() {
+		
+		if(tienda!=null)
+		{
+			if(tiempoActual() != mesActual.getMes())
+			{
+				Meses miMes = new Meses();
+				miMes.setMes(tiempoActual());
+				meses.add(miMes);
+				mesActual.setMes(tiempoActual());
+			}
+		}
+		
+		
 		if(tienda==null)
 		{
 			tienda = new Tienda();
@@ -60,6 +86,10 @@ public class Tienda implements Serializable {
 		
 		return idConCeros;
 		
+	}
+	
+	public ArrayList<Meses> getMeses() {
+		return meses;
 	}
 	
 	public String asignarIdUsuario() {
@@ -319,6 +349,28 @@ public class Tienda implements Serializable {
 	public void insertarProveedor(String proveedor)
 	{
 		proveedores.add(proveedor);
+	}
+	
+	
+	public Meses getMesActual() {
+		return mesActual;
+	}
+
+	public void setMesActual(Meses mesActual) {
+		this.mesActual = mesActual;
+	}
+
+	public static String tiempoActual()
+	{
+		Date date = new Date();
+		LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		int month = localDate.getMonthValue();
+		int year = localDate.getYear();
+		
+		String tiempoActual = new String(month + "-"+year);
+		
+		return tiempoActual;
+		
 	}
 
 }
