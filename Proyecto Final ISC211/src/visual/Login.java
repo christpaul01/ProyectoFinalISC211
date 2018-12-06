@@ -122,9 +122,9 @@ public class Login extends JFrame {
 				}
 				
 				if(existeCuenta() != -1 && concuerdaPassword(existeCuenta()) &&  Tienda.getInstance().getUsuarios().get(existeCuenta()) instanceof Vendedor ) {
-					Cliente cliente;
-					cliente = new Cliente();
-					cliente.setVisible(true);
+					Ventas vendedor;
+					vendedor = new Ventas();
+					vendedor.setVisible(true);
 				}
 				
 				if(existeCuenta()==-1) {

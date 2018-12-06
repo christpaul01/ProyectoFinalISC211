@@ -25,6 +25,7 @@ import javax.swing.JComboBox;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.border.TitledBorder;
 
@@ -453,16 +454,34 @@ public class Ventas extends JFrame {
 	public void buscarCliente()
 	{
 		//txtClient.getText()
-		
+		int cant = 0;
 		
 		for(int i = 0; i < Tienda.getInstance().getClientes().size(); i++)
 		{
 			if(Tienda.getInstance().getClientes().get(i).getNombre().startsWith(txtClient.getText()))
 			{
+				cant++;
 				cmbCliente.addItem(Tienda.getInstance().getClientes().get(i));
 			}
 		}
 		
+		if(cant == 0)
+		{
+			int n = JOptionPane.showConfirmDialog(
+		            null,
+		            "Desea agregar un nuevo cliente?",
+		            "Cliente No Encontrado",
+		            JOptionPane.YES_NO_OPTION);
+
+		        if(true){
+		        	visual.Cliente cliente;
+					cliente = new visual.Cliente();
+					cliente.setVisible(true);
+		        }
+		        else {
+		            JOptionPane.showMessageDialog(null, "Buscar Otro Cliente");
+		        }
+		}
 	}
 	
 }
