@@ -342,6 +342,7 @@ public class Ventas extends JFrame {
 	public void borrarBusdquedaCientes()
 	{
 		txtClient.setText("");
+		//Test
 	}
 	
 	public void borrarBusdquedaComponentes() {
