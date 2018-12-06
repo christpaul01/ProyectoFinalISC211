@@ -86,6 +86,7 @@ public class Login extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
@@ -194,7 +195,9 @@ public class Login extends JFrame {
 		{
 			login = true;
 			this.setVisible(false);
-			asignarLoggedin((Vendedor)Tienda.getInstance().getUsuarios().get(index));
+			
+			if(Tienda.getInstance().getUsuarios().get(index) instanceof Vendedor)
+				asignarLoggedin((Vendedor)Tienda.getInstance().getUsuarios().get(index));
 			
 		}
 			
