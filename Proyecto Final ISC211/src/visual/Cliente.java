@@ -38,9 +38,9 @@ import javax.swing.GroupLayout.Alignment;
 import java.awt.CardLayout;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
+//import com.jgoodies.forms.layout.FormLayout;
+//import com.jgoodies.forms.layout.ColumnSpec;
+//import com.jgoodies.forms.layout.RowSpec;
 import java.awt.Panel;
 
 public class Cliente extends JDialog {
@@ -80,6 +80,7 @@ public class Cliente extends JDialog {
 		ListarCliente.setVisible(false);
 		contentPanel.add(ListarCliente, BorderLayout.CENTER);
 		ListarCliente.setLayout(new BoxLayout(ListarCliente, BoxLayout.X_AXIS));
+		
 		
 		scrollPane = new JScrollPane();
 		ListarCliente.add(scrollPane);

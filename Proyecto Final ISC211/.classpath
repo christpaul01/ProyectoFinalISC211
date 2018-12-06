@@ -6,7 +6,11 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry excluding="Librerias/" kind="src" path="src"/>
-	<classpathentry kind="src" path="img"/>
+	<classpathentry kind="src" path="img">
+		<attributes>
+			<attribute name="ignore_optional_problems" value="true"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="src" path="lib"/>
 	<classpathentry kind="lib" path="lib/jcommon-1.0.23.jar"/>
 	<classpathentry kind="lib" path="lib/jfreechart-1.0.19.jar"/>
