@@ -329,7 +329,7 @@ public class Ventas extends JFrame {
 		btnAcceptar_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				if(lblClienteSelecionado.getText() == "Ninguno" || (Double) spnrPrecioTotal.getValue() > 0.00 )
+				if(lblClienteSelecionado.getText() == "Ninguno" )
 				{
 					JOptionPane.showMessageDialog(null, "Seleccionar un cliente y componentes para finalizar.", "¡Error!", JOptionPane.PLAIN_MESSAGE);
 				}
@@ -337,6 +337,7 @@ public class Ventas extends JFrame {
 				if(lblClienteSelecionado.getText() != "Ninguno" && (Double) spnrPrecioTotal.getValue() > 0.00)
 				{
 					JOptionPane.showMessageDialog(null, "Compra Hecha!", "¡Exito!", JOptionPane.PLAIN_MESSAGE);
+					FinalizarCompra();
 				}
 			}
 		});
@@ -502,7 +503,7 @@ public class Ventas extends JFrame {
 		listModelKitsCliente.clear();
 		listModelKits.clear();
 		lblClienteSelecionado.setText("Ninguno");
-		
+		cmbCliente.removeAllItems();
 		actualizarCantidad();
 		actualizarPrecio();
 		
