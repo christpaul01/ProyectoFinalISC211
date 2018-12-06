@@ -456,6 +456,8 @@ public class Ventas extends JFrame {
 		//txtClient.getText()
 		int cant = 0;
 		
+		cmbCliente.removeAllItems();
+		
 		for(int i = 0; i < Tienda.getInstance().getClientes().size(); i++)
 		{
 			if(Tienda.getInstance().getClientes().get(i).getNombre().startsWith(txtClient.getText()))
