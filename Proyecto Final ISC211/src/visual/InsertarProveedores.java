@@ -83,7 +83,6 @@ public class InsertarProveedores extends JDialog {
 			public void mouseClicked(MouseEvent e) {
 				
 				insertarPro();
-				
 				try {
 					Tienda.getInstance().guardarDatos();
 				} catch (ClassNotFoundException | IOException e1) {
@@ -122,6 +121,9 @@ public class InsertarProveedores extends JDialog {
 			txtNombre.setText("");
 			
 			JOptionPane.showMessageDialog(null, "Proveedor guardado en 'Mis Documentos'!","¡Guardado!", JOptionPane.PLAIN_MESSAGE);
+			
+			dispose();
+			
 			
 		}
 		
