@@ -498,6 +498,18 @@ public class Ventas extends JFrame {
 	
 	public void FinalizarCompra()
 	{
+		for(int i = 0; i < listModelCliente.size(); i++)
+		{
+			listModelCliente.get(i);
+			for( int n = 0; n < Tienda.getInstance().getComponentes().size(); n++)
+			{
+				if(listModelCliente.get(i) == Tienda.getInstance().getComponentes().get(n))
+				{
+					Tienda.getInstance().getComponentes().get(n).setCantidad(Tienda.getInstance().getComponentes().get(n).getCantidad() - 1);
+				}
+			}
+		}
+		
 		listModelComponente.clear();
 		listModelCliente.clear();
 		listModelKitsCliente.clear();
@@ -506,6 +518,8 @@ public class Ventas extends JFrame {
 		cmbCliente.removeAllItems();
 		actualizarCantidad();
 		actualizarPrecio();
+		
+		
 		
 		
 	}
