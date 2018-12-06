@@ -22,6 +22,9 @@ import java.text.ParseException;
 
 import javax.swing.JFormattedTextField;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -57,6 +60,15 @@ public class CrearCliente extends JDialog {
 			setTitle("Modificar Cliente");
 			btnAceptar.setText("Modificar");
 		}
+		
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+				| UnsupportedLookAndFeelException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
 		JLabel label = new JLabel("");
 		label.setIcon(new ImageIcon(CrearCliente.class.getResource("/img/iconfinder_user-id_285641.png")));
 		label.setBounds(21, 102, 291, 178);
