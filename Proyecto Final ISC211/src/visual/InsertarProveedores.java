@@ -74,6 +74,11 @@ public class InsertarProveedores extends JDialog {
 		getContentPane().add(lblNombreProveedor);
 		
 		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
 		btnCancelar.setBounds(353, 124, 89, 23);
 		getContentPane().add(btnCancelar);
 		
