@@ -47,5 +47,11 @@ public class Cliente implements Serializable {
 		this.telefono = telefono;
 	}
 	
+	public String toString()
+	{
+		return nombre;
+		
+	}
+	
 
 }
