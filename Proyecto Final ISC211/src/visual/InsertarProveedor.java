@@ -18,6 +18,7 @@ import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.awt.event.ActionEvent;
+import javax.swing.SwingConstants;
 
 public class InsertarProveedor extends JDialog {
 
@@ -33,26 +34,27 @@ public class InsertarProveedor extends JDialog {
 	 */
 	public InsertarProveedor() {
 		setTitle("Proveedor");
-		setBounds(100, 100, 450, 249);
+		setBounds(100, 100, 450, 176);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		{
-			JLabel lblNewLabel = new JLabel("");
+			/*JLabel lblNewLabel = new JLabel("");
 			lblNewLabel.setIcon(new ImageIcon(InsertarProveedor.class.getResource("/img/iconfinder_contacts_1954532 (1).png")));
 			lblNewLabel.setBounds(34, 23, 128, 128);
-			contentPanel.add(lblNewLabel);
+			contentPanel.add(lblNewLabel);*/
 		}
 		
-		JLabel lblNombre = new JLabel("Nombre:");
-		lblNombre.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNombre.setBounds(172, 75, 69, 26);
+		JLabel lblNombre = new JLabel("Nombre Proveedor:");
+		lblNombre.setHorizontalAlignment(SwingConstants.LEFT);
+		lblNombre.setFont(new Font("Microsoft JhengHei UI Light", Font.PLAIN, 14));
+		lblNombre.setBounds(10, 41, 177, 26);
 		contentPanel.add(lblNombre);
 		
 		txtNombre = new JTextField();
 		txtNombre.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		txtNombre.setBounds(243, 76, 140, 26);
+		txtNombre.setBounds(197, 41, 227, 26);
 		contentPanel.add(txtNombre);
 		txtNombre.setColumns(10);
 		{
