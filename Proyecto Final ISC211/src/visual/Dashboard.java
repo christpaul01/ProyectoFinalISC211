@@ -86,6 +86,17 @@ public class Dashboard extends JFrame {
 	private JTextField txtCPUSocket;
 	private JSeparator sprtrHDD;
 	private JTextField txtUserAdmin;
+	private DefaultCategoryDataset lcd_Stock;
+	private String series1;
+	private String series2;
+
+	private String category1;
+	private String category2;
+	private String category3;
+	private String category4;
+	private String category5;
+	
+	private DefaultCategoryDataset lcd_Ventas;
 
 	private static JTable tabInventario;
 	private static String[] tabDetalles;
@@ -147,7 +158,7 @@ public class Dashboard extends JFrame {
 		panel_1.setLayout(null);
 
 		// Fuente de Datos
-		DefaultCategoryDataset lcd_Ventas = new DefaultCategoryDataset();
+		lcd_Ventas = new DefaultCategoryDataset();
 
 		// Creando el Grafico
 		JFreeChart chartVentas = ChartFactory.createLineChart("Resumen de Ventas", "Mes", "Cantidad", lcd_Ventas,
@@ -159,41 +170,28 @@ public class Dashboard extends JFrame {
 		panel_1.add(pnlChartVentas);
 
 		// Agregango datos (Remplazar por funccion)
-		lcd_Ventas.addValue(80, "ventas", "Julio");
-		lcd_Ventas.addValue(300, "ventas", "Agosto");
-		lcd_Ventas.addValue(600, "ventas", "Septiembre");
-		lcd_Ventas.addValue(1200, "ventas", "Octubre");
-		lcd_Ventas.addValue(2400, "ventas", "Noviembre");
-		lcd_Ventas.addValue(1000, "Compras", "Octubre");
-		lcd_Ventas.addValue(1100, "Compras", "Noviembre");
+		
+		graficaVenta();
 
 		JPanel pnlStock = new JPanel();
 		tabs_Dashboard.addTab("Stocks", null, pnlStock, null);
 
 		// Test
 
-		String series1 = "Stock";
-		String series2 = "Ventas";
+		series1 = "Stock Disponible";
+		series2 = "Ventas del mes actual";
 
-		String category1 = "Ram";
-		String category2 = "Motherboards";
-		String category3 = "Disco Duros";
-		String category4 = "Procesadores";
-		String category5 = "Kits";
+		category1 = "Ram";
+		category2 = "Motherboards";
+		category3 = "Disco Duros";
+		category4 = "Procesadores";
+		category5 = "Kits";
+		
+		
 
-		DefaultCategoryDataset lcd_Stock = new DefaultCategoryDataset();
+		lcd_Stock = new DefaultCategoryDataset();
 
-		lcd_Stock.addValue(1.5, series1, category1);
-		lcd_Stock.addValue(4.0, series1, category2);
-		lcd_Stock.addValue(3.0, series1, category3);
-		lcd_Stock.addValue(5.0, series1, category4);
-		lcd_Stock.addValue(5.0, series1, category5);
-
-		lcd_Stock.addValue(5.0, series2, category1);
-		lcd_Stock.addValue(7.0, series2, category2);
-		lcd_Stock.addValue(6.0, series2, category3);
-		lcd_Stock.addValue(8.0, series2, category4);
-		lcd_Stock.addValue(4.0, series2, category5);
+		graficarStock();
 
 		JFreeChart chartStock = ChartFactory.createBarChart("Resumen de stocks", // chart title
 				"Componentes", // domain axis label
@@ -879,6 +877,8 @@ public class Dashboard extends JFrame {
 				}
 
 				Kit miKit = new Kit(Tienda.getInstance().asignarIdKit(), nombreKit, misComponentes);
+				
+				miKit.setCantidad((int) spnrCantKit.getValue());
 
 				Tienda.getInstance().insertarKits(miKit);
 
@@ -888,6 +888,17 @@ public class Dashboard extends JFrame {
 
 				if (kitIni != kitFinal)
 					btnCancelarKit.doClick();
+				
+				
+				try {
+					Tienda.getInstance().guardarDatos();
+				} catch (ClassNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 
 			}
 		});
@@ -1245,6 +1256,7 @@ public class Dashboard extends JFrame {
 		btnDashboard.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
+				graficarStock();
 				tabsAdmin.setVisible(false);
 				tabsVendedores.setVisible(false);
 				tabs_Dashboard.setVisible(true);
@@ -1414,6 +1426,64 @@ public class Dashboard extends JFrame {
 		filaListarComponentes[4] = comp.getProveedor();
 		DTMdetalles.addRow(filaListarComponentes);
 
+	}
+	
+	private void graficaVenta()
+	{
+		
+		int cantMes = Tienda.getInstance().getMeses().size();
+		
+		if(cantMes == 1)
+		{
+			
+			lcd_Ventas.addValue(0, "ventas", "Mes Anterior");
+			lcd_Ventas.addValue(Tienda.getInstance().getMeses().get(0).getVentas().size(), "ventas",Tienda.getInstance().getMesActual().getMes() );
+			//lcd_Ventas.1
+			
+		}
+		
+		if(cantMes <= 5 && cantMes > 1 )
+		{
+			for(int i = 0; i < cantMes; i++)
+			{
+				lcd_Ventas.addValue(Tienda.getInstance().getMeses().get(i).getVentas().size(), "ventas",Tienda.getInstance().getMeses().get(i).getMes() );
+			}
+		}
+		
+		if(cantMes > 5)
+		{
+			for(int i = cantMes, v = 5 ; v > 0; i-- ,v--)
+			{
+				lcd_Ventas.addValue(Tienda.getInstance().getMeses().get(i-v).getVentas().size(), "ventas",Tienda.getInstance().getMeses().get(i-v).getMes() );
+			}
+		}
+		
+	}
+	
+	private void graficarStock()
+	{
+		
+		/*category1 = "Ram";
+		category2 = "Motherboards";
+		category3 = "Disco Duros";
+		category4 = "Procesadores";
+		category5 = "Kits";*/
+		
+		int mesActual = Tienda.getInstance().getMeses().size() -1;
+		
+		lcd_Stock.addValue(Tienda.getInstance().calcRam(), series1, category1);
+		lcd_Stock.addValue(Tienda.getInstance().calcMotherBoard(), series1, category2);
+		lcd_Stock.addValue(Tienda.getInstance().calcHDD(), series1, category3);
+		lcd_Stock.addValue(Tienda.getInstance().calcCPU(), series1, category4);
+		lcd_Stock.addValue(Tienda.getInstance().calcKits(), series1, category5);
+
+		//Ventas
+		
+		lcd_Stock.addValue(Tienda.getInstance().getMeses().get(mesActual).getCantRam(), series2, category1);
+		lcd_Stock.addValue(Tienda.getInstance().getMeses().get(mesActual).getCantMotherboard(), series2, category2);
+		lcd_Stock.addValue(Tienda.getInstance().getMeses().get(mesActual).getCantHDD(), series2, category3);
+		lcd_Stock.addValue(Tienda.getInstance().getMeses().get(mesActual).getCantCPU(), series2, category4);
+		lcd_Stock.addValue(Tienda.getInstance().getMeses().get(mesActual).getCantKits(), series2, category5);
 	}
 
 }

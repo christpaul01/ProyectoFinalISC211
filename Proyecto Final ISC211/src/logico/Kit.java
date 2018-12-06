@@ -15,6 +15,7 @@ public class Kit implements Serializable {
 	private String id;
 	private String nombre;
 	private Double precioFinal;
+	private int cantidad;
 	
 	
 	public Kit(String id, String nombre,ArrayList<Componente> componentes) {
@@ -23,8 +24,7 @@ public class Kit implements Serializable {
 		this.id = id;
 		this.nombre = nombre;
 		this.precioFinal = precioTotal();
-		
-		
+		cantidad = 0;
 	}
 
 	public String toString()
@@ -79,6 +79,14 @@ public class Kit implements Serializable {
 		return precioFinal;
 	}
 	
+	public void setCantidad(int cant)
+	{
+		cantidad = cant;
+	}
 	
+	public int getCantidad()
+	{
+		return cantidad;
+	}
 
 }
