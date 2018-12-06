@@ -178,8 +178,8 @@ public class Dashboard extends JFrame {
 
 		// Test
 
-		series1 = "Stock";
-		series2 = "Ventas";
+		series1 = "Stock Disponible";
+		series2 = "Ventas del mes actual";
 
 		category1 = "Ram";
 		category2 = "Motherboards";
@@ -1442,13 +1442,22 @@ public class Dashboard extends JFrame {
 			
 		}
 		
-		/*lcd_Ventas.addValue(80, "ventas", "Julio");
-		lcd_Ventas.addValue(300, "ventas", "Agosto");
-		lcd_Ventas.addValue(600, "ventas", "Septiembre");
-		lcd_Ventas.addValue(1200, "ventas", "Octubre");
-		lcd_Ventas.addValue(2400, "ventas", "Noviembre");
-		lcd_Ventas.addValue(1000, "Compras", "Octubre");
-		lcd_Ventas.addValue(1100, "Compras", "Noviembre");*/
+		if(cantMes <= 5 && cantMes > 1 )
+		{
+			for(int i = 0; i < cantMes; i++)
+			{
+				lcd_Ventas.addValue(Tienda.getInstance().getMeses().get(i).getVentas().size(), "ventas",Tienda.getInstance().getMeses().get(i).getMes() );
+			}
+		}
+		
+		if(cantMes > 5)
+		{
+			for(int i = cantMes, v = 5 ; v > 0; i-- ,v--)
+			{
+				lcd_Ventas.addValue(Tienda.getInstance().getMeses().get(i-v).getVentas().size(), "ventas",Tienda.getInstance().getMeses().get(i-v).getMes() );
+			}
+		}
+		
 	}
 	
 	private void graficarStock()
