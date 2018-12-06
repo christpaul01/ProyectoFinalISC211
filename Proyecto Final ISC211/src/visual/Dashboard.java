@@ -1346,20 +1346,11 @@ public class Dashboard extends JFrame {
 		JButton btnProveedores = new JButton("PROVEEDORES");
 		btnProveedores.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				InsertarProveedores insercion;
+				InsertarProveedor insercion;
 
 				changeLabelNameANDtableContents(0);
-				try {
-					insercion = new InsertarProveedores();
+					insercion = new InsertarProveedor();
 					insercion.setVisible(true);
-
-				} catch (ClassNotFoundException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
 
 			}
 		});
